@@ -15,10 +15,10 @@ protected:
 public:
 	// methods
 	//c'tor
-	Piece(const int row, const int col, const int color);
+	//Piece(const int row, const int col, const int color);
 
 	//d'tor
-	virtual ~Piece();
+	//virtual ~Piece();
 
 	virtual void move(int dstRow, int dstCol) = 0;
 };

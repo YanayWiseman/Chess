@@ -10,5 +10,5 @@ protected:
 	bool _isCheck; // current king is in check position
 	string _code;  // input recieved from the froneEnd
 public:
-	void manageGame(string _code);
+	//void manageGame(string _code);
 };

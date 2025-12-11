@@ -8,9 +8,9 @@
 
 void Knight::move(int dstRow, int dstCol)
 {
-	if (MovementCheck::moveKnightCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if (MovementCheck::moveKnightCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }

@@ -8,9 +8,9 @@
 
 void Pawn::move(int dstRow, int dstCol)
 {
-	if (MovementCheck::movePawnCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if (MovementCheck::movePawnCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }

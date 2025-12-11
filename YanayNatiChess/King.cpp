@@ -8,9 +8,9 @@
 
 void King::move(int dstRow, int dstCol)
 {
-	if (MovementCheck::moveKingCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if (MovementCheck::moveKingCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }

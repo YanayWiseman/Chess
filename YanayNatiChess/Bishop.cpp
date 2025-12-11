@@ -8,9 +8,9 @@
 
 void Bishop::move(int dstRow, int dstCol)
 {
-	if(MovementCheck::moveBishopCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if(MovementCheck::moveBishopCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }

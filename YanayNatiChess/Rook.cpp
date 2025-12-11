@@ -8,9 +8,9 @@
 
 void Rook::move(int dstRow, int dstCol)
 {
-	if (MovementCheck::moveRookCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if (MovementCheck::moveRookCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }

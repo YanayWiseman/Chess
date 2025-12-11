@@ -8,9 +8,9 @@
 
 void Queen::move(int dstRow, int dstCol)
 {
-	if (MovementCheck::moveQueenCheck(dstRow, dstCol))
-	{
-		this->_row = dstRow;
-		this->_col = dstCol;
-	}
+	//if (MovementCheck::moveQueenCheck(dstRow, dstCol))
+	//{
+	//	this->_row = dstRow;
+	//	this->_col = dstCol;
+	//}
 }
