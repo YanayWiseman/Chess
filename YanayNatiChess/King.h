@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-class King
+class King : public Piece
 {
 public:
 	void move() override;

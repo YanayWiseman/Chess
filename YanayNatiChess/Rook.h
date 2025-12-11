@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-class Rook
+class Rook : public Piece
 {
 public:
 	void move() override;

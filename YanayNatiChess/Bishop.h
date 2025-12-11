@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-class Bishop
+class Bishop : public Piece
 {
 public:
 	// Bishop has no fields, so we can use the default implementation
@@ -10,5 +10,5 @@ public:
 	// d'tor
 	virtual ~Bishop() = default;
 
-	void move() override;
+	void move(int dstRow, int dstCol) override;
 };

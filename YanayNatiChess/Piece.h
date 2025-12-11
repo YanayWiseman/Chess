@@ -1,9 +1,10 @@
 #include <vector>
 #include <iostream>
+#include "MovementCheck.h"
 
 class Piece
 {
-private:
+protected:
 	//fields
 	int _row;
 	int _col;
@@ -13,7 +14,6 @@ private:
 
 public:
 	// methods
-	
 	//c'tor
 	Piece(const int row, const int col, const int color);
 
