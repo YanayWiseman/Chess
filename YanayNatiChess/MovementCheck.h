@@ -1,4 +1,3 @@
-
 /*
 	static class that handles movement checks
 */

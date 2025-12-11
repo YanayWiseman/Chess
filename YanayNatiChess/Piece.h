@@ -20,5 +20,5 @@ public:
 	//d'tor
 	virtual ~Piece();
 
-	virtual void move() = 0;
+	virtual void move(int dstRow, int dstCol) = 0;
 };

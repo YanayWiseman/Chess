@@ -3,5 +3,12 @@
 class Queen : public Piece
 {
 public:
-	void move() override;
+	// Queen has no fields, so we can use the default implementation
+	// c'tor
+	Queen() = default;
+
+	// d'tor
+	virtual ~Queen() = default;
+
+	void move(int dstRow, int dstCol) override;
 };

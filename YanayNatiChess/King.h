@@ -3,5 +3,12 @@
 class King : public Piece
 {
 public:
-	void move() override;
+	// King has no fields, so we can use the default implementation
+	// c'tor
+	King() = default;
+
+	// d'tor
+	virtual ~King() = default;
+
+	void move(int dstRow, int dstCol) override;
 };
