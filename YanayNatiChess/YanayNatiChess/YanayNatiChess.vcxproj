@@ -126,11 +126,11 @@
     <ClCompile Include="..\Bishop.cpp" />
     <ClCompile Include="..\King.cpp" />
     <ClCompile Include="..\Knight.cpp" />
+    <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\Pawn.cpp" />
     <ClCompile Include="..\ProtocolCrafter.cpp" />
     <ClCompile Include="..\Queen.cpp" />
     <ClCompile Include="..\Rook.cpp" />
-    <ClCompile Include="..\Source.cpp" />
     <ClCompile Include="..\stdafx.cpp" />
     <ClCompile Include="..\‏‏Board.cpp" />
     <ClCompile Include="..\‏‏Manager.cpp" />

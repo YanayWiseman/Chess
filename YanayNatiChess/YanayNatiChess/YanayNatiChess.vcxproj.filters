@@ -48,10 +48,10 @@
     <ClCompile Include="..\ProtocolCrafter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source.cpp">
+    <ClCompile Include="..\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\stdafx.cpp">
+    <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
