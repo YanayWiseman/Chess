@@ -1,0 +1,5 @@
+#include "Bishop.h"
+
+/*
+	
+*/
