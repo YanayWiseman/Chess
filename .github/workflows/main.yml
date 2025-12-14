@@ -18,7 +18,6 @@ jobs:
           git clone https://$GH_PAT@github.com/Cyber-Education-Center/ExerciseTests-Ex7-8.git ex7-8
           mv ex7-8/* .
           rm -rf ex7-8 .git .github
-
           git clone https://$GH_PAT@github.com/Cyber-Education-Center/ExerciseTests-Utils.git/ utils
           cd utils
           g++ printMessage.cpp -o printMessage
@@ -27,7 +26,6 @@ jobs:
           mv CodesToMessages.csv ..
           cd ..
           rm -rf utils
-
           git clone https://$GH_PAT@github.com//Cyber-Education-Center/python-tester-for-chess.git python-tester
           mv python-tester/test_cases.json .
           mv python-tester/test_runner.py .
@@ -54,7 +52,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-
       - name: Verify Submission Files
         run: |
           git clone https://$GH_PAT@github.com/Cyber-Education-Center/ExerciseTests-VerifySubmittedFiles.git verifysubmittedfiles
@@ -63,7 +60,6 @@ jobs:
           chmod +x filesverifier
           mv filesverifier ..
           cd .. && rm -rf verifysubmittedfiles
-
           ./filesverifier PreSubmissionChecker.txt 5
           ./filesverifier PreSubmissionChecker.txt 2
           ./filesverifier PreSubmissionChecker.txt 4
@@ -73,9 +69,8 @@ jobs:
       - name: Check UML Diagram
         run: |
           echo "Checking for UML diagram (uml.png)..."
-          if ./filesverifier PreSubmissionChecker.txt 1; then score=100; else score=0; fi
+          if ./filesverifier PreSubmissionChecker.txt 1; then score=1; else score=0; fi
           jq ".grades.uml = $score" results.json > tmp.json && mv tmp.json results.json
-
       - name: Compile the test
         run: |
           tree
@@ -93,25 +88,32 @@ jobs:
       - name: Run the test
         run: |
           python test_runner.py | tee test_output.txt
-
       - name: Update results.json
         run: |
           kasparov=$(grep "Kasparov:" test_output.txt | awk -F': ' '{print $2}' | tr -d ')')
           scholars=$(grep "Scholars mate:" test_output.txt | awk -F': ' '{print $2}' | tr -d ')')
           random=$(grep "Random moves:" test_output.txt | awk -F': ' '{print $2}' | tr -d ')')
+          
+          # weights of each scenario
+          kasparov=$(echo "($kasparov * 0.6)" |bc -l)
+          scholars=$(echo "($scholars * 0.15)" |bc -l)
+          random=$(echo "($random * 0.25)" |bc -l)
 
+          #rounding the scores
+          kasparov=${kasparov%.*}
+          scholars=${scholars%.*}
+          random=${random%.*}
+          
           jq ".grades.Kasparov = $kasparov" results.json > tmp.json && mv tmp.json results.json
           jq ".grades.\"Scholars mate\" = $scholars" results.json > tmp.json && mv tmp.json results.json
           jq ".grades.\"Random moves\" = $random" results.json > tmp.json && mv tmp.json results.json
-
           echo "Updated results.json:"
           cat results.json
-
       - name: Summary
         if: always()
         run: |
           echo "All checks completed."
-          total=$(jq '[.grades.uml] | add' results.json)
+          total=$(jq '.grades | to_entries | map(select(.key != "uml") | .value) | add' results.json)
           avg=$(jq -n "($total / 100 * 100) | round")
           echo "Final score: $avg% ($total out of 100)"
           echo -n "Final results.json:"; cat results.json | tr -d '\n'
