@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 	static class that handles movement checks
 */

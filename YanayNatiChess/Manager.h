@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include "Pipe.h"
 #include <iostream>
@@ -42,6 +43,7 @@ private:
 	// methods
 	void updateTurn();
 	void CheckGameState();
+	bool isKingAlive(Color kingColor) const;
 
 public:
 	// methods

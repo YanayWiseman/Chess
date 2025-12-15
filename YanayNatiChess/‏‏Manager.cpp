@@ -1,5 +1,7 @@
 #include "Manager.h"
 
+const int BOARD_SIZE = 8;
+
 /*
 	function to run the entire game
 	input: no input values
@@ -19,7 +21,7 @@ void Manager::manageGame()
 
 	char msgToGraphics[KB];
 
-	// begging board
+	// beggining board
 	strcpy_s(msgToGraphics, "rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR0");
 
 	pipe.sendMessageToGraphics(msgToGraphics);   // send the board string
@@ -29,20 +31,18 @@ void Manager::manageGame()
 
 	ProtocolCrafter crafter;
 
-	while (msgFromGraphics != "quit")
+	while (msgFromGraphics != "quit" && !this->_won)
 	{
 		Move move = crafter.parseMove(msgFromGraphics);
-		char code = validateMove(move);
-
+		char code = makeMove(move);
 		const char* myCode = crafter.createResponse(code);
 
 		strcpy_s(msgToGraphics, myCode); // msgToGraphics should contain the result of the operation
+		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics
 
-		// return result to graphics		
-		pipe.sendMessageToGraphics(msgToGraphics);
+		msgFromGraphics = pipe.getMessageFromGraphics();  // get message from graphics
 
-		// get message from graphics
-		msgFromGraphics = pipe.getMessageFromGraphics();
+		delete[] myCode;
 	}
 
 	pipe.close();
@@ -85,7 +85,7 @@ char Manager::validateMove(const Move& move)
 	const Piece* dstPiece = this->_board.getPiece(dstRow, dstCol);
 
 	// 3 - dst is the same color as src
-	if (srcPiece || srcPiece->getColor() == this->_turn)
+	if (dstPiece && dstPiece->getColor() == this->_turn)
 	{
 		return notValidDest;
 	}
@@ -110,14 +110,15 @@ char Manager::validateMove(const Move& move)
 	// get opposite color
 	Color enemy = (this->_turn == Color::White) ? Color::Black : Color::White;
 
+	// move put enemy in checkmate (8)
+	if (!isKingAlive(enemy))
+	{
+		return legalMoveCheckMate;
+	}
+
+	// move put enemy in check (1)
 	if (tempBoard.isKingInCheck(enemy))
 	{
-		// checkmate? (8)
-		if (MovementCheck::causesCheck(move, tempBoard, enemy))
-		{
-			return legalMoveCheckMate;
-		}
-		// put enemy in check but didn't win (1)
 		return legalMoveCheck;
 	}
 
@@ -147,7 +148,7 @@ char Manager::makeMove(const Move& move)
 	CheckGameState();
 
 	// if game is not over, swap the player
-	if (this->_won)
+	if (!this->_won)
 	{
 		updateTurn();
 	}
@@ -163,5 +164,46 @@ char Manager::makeMove(const Move& move)
 
 void Manager::updateTurn()
 {
-	this->_turn = (this->_turn == Color::White) ? Color::Black : Color::White;
+	this->_turn = (_turn == Color::White) ? Color::Black : Color::White;
+}
+
+/*
+	function to check the game state and update the flags - _won, _inCheck
+	input: no input values
+	output: no return values
+*/
+
+void Manager::CheckGameState()
+{
+	Color enemy = (_turn == Color::White) ? Color::Black : Color::White;
+
+	// check?
+	this->_inCheck = this->_board.isKingInCheck(enemy);
+
+	// if enemy king does not exist then current player won
+	this->_won = !isKingAlive(enemy);
+}
+
+/*
+	Helper function to check if the enemy's king is alive or not
+	input: the enemy king's color
+	output: boolean, true if enemy king exists and false otherwise
+*/
+
+bool Manager::isKingAlive(Color kingColor) const
+{
+	int i = 0, j = 0;
+
+	for (i = 0; i < BOARD_SIZE; i++)
+	{
+		for (j = 0; j < BOARD_SIZE; j++)
+		{
+			const Piece* curPiece = this->_board.getPiece(i, j);
+			if (curPiece && curPiece->getColor() == kingColor && curPiece->getType() == PieceType::TypeKing)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
