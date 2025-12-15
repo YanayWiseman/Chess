@@ -47,3 +47,8 @@ void Manager::manageGame()
 
 	pipe.close();
 }
+
+char Manager::validateMove(const Move& move)
+{
+	return '6';
+}

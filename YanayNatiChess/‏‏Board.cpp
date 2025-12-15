@@ -90,7 +90,7 @@ bool Board::isEmpty(int row, int col) const
 	IMPORTANT: this function is called only when we know for certain that the move is legal!!
 */
 
-void Board::movePiece(const Move move)
+void Board::movePiece(const Move& move)
 {
 	int srcRow = move.getSrcCol();
 	int srcCol = move.getSrcCol();
@@ -100,5 +100,5 @@ void Board::movePiece(const Move move)
 	Piece* piece = this->_squares[srcRow][srcCol];
 
 	// delete it
-	delete 
+	
 }
