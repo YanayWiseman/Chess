@@ -6,6 +6,7 @@
 #include <string.h>
 #include <chrono>
 #include "ProtocolCrafter.h"
+#include "MovementCheck.h"
 #include "Board.h"
 #include "Piece.h"
 #include "Move.h"

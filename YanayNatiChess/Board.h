@@ -31,7 +31,6 @@ private:
 	Piece* _squares[SIZE][SIZE];
 
 	// methods
-	bool inBoard(int row, int col) const;
 	Piece* createPieceFromChar(char ch) const;
 
 public:
@@ -48,6 +47,7 @@ public:
 	// Helpers
 	bool isEmpty(int row, int col) const;
 	bool isDestValid(const Move& move) const;
+	bool inBoard(int row, int col) const;
 	void movePiece(const Move& move);
 	bool isKingInCheck(Color curColor) const;
 };
