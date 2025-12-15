@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
-#include "Pipe.h"
 #include <iostream>
-#include <thread>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
+#include <thread>
+#include "Pipe.h"
 #include <chrono>
+#endif
 #include "ProtocolCrafter.h"
 #include "MovementCheck.h"
 #include "Board.h"
