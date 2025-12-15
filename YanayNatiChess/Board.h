@@ -8,6 +8,10 @@ private:
 	//fields
 	static constexpr int SIZE = 8;
 	Piece* _squares[SIZE][SIZE];
+
+	// methods
+	bool inBoard(int row, int col) const;
+
 public:
 	//Methods
 	// c'tor & d'tor
@@ -18,7 +22,6 @@ public:
 	const Piece* getPiece(int row, int col) const;
 
 	// Helpers
-	bool inBoard(int row, int col) const;
 	bool isEmpty(int row, int col) const;
 	bool isPathClear(const Move move) const;
 	void movePiece(const Move move);

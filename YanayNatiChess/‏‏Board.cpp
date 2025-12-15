@@ -54,3 +54,31 @@ bool Board::inBoard(int row, int col) const
 	// important!!! -> function works by 0 counting index
 	return row < this->SIZE && row >= 0 && col >= 0 && col < this->SIZE;
 }
+
+/*
+	A getter function to get the piece that is in the given indexes
+	input: the row and col indexes
+	output: the piece in the given position
+*/
+
+const Piece* Board::getPiece(int row, int col) const
+{
+	// check if the position is within the board
+	if (!inBoard(row, col))
+	{
+		return nullptr;
+	}
+
+	return this->_squares[row][col];
+}
+
+/*
+	function to check if the piece that is in the given indexes is empty
+	input: the row and col indexes
+	output: boolean, true if empty, false otherwise
+*/
+
+bool Board::isEmpty(int row, int col) const
+{
+	return getPiece(row, col) == nullptr;
+}
