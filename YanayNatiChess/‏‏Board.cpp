@@ -146,5 +146,10 @@ void Board::movePiece(const Move& move)
 	Piece* piece = this->_squares[srcRow][srcCol];
 
 	// delete it
+	delete this->_squares[dstRow][dstCol];
+
+	// put source piece in destination and clear it
+	this->_squares[dstRow][dstCol] = piece;
+	this->_squares[srcRow][srcCol] = nullptr;
 	
 }
