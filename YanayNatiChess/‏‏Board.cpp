@@ -1,6 +1,14 @@
 #include "Board.h"
-#include "Piece.h"
-#include "Move.h"
+
+static const char* INITIAL_BOARD =
+"rnbqkbnr"
+"pppppppp"
+"########"
+"########"
+"########"
+"########"
+"PPPPPPPP"
+"RNBQKBNR";
 
 /*
 	Constructor function to construct the Board object
@@ -17,8 +25,26 @@ Board::Board()
 	{
 		for (j = 0; j < this->SIZE; j++)
 		{
-			this->_squares[i][j] = nullptr;
+			char ch = INITIAL_BOARD[i * this->SIZE + j];
+
+			(ch == HASHTAG) ? this->_squares[i][j] = nullptr : this->_squares[i][j] = createPieceFromChar(ch);
 		}
+	}
+}
+
+/*
+	Helper function to create the right piece according to its letter representing it
+	input: the char
+	output: pointer to the piece
+*/
+
+Piece* Board::createPieceFromChar(char ch) const
+{
+	Color color = islower(ch) ? Color::White : Color::Black;
+	switch ((int)ch)
+	{
+	case Rook:
+		//return new Rook(color);
 	}
 }
 

@@ -14,7 +14,7 @@ void Manager::manageGame()
 	string answer;
 	if (!isConnect)
 	{
-		return;
+		return; // return
 	}
 
 	char msgToGraphics[KB];
@@ -50,5 +50,5 @@ void Manager::manageGame()
 
 char Manager::validateMove(const Move& move)
 {
-	return '0';
+	return '6';
 }

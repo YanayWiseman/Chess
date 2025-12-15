@@ -1,6 +1,27 @@
+#include "Rook.h"
+#include "Knight.h"
+#include "Bishop.h"
+#include "Queen.h"
+#include "King.h"
+#include "Pawn.h"
+#include "Piece.h"
+#include "Move.h"
+
 class Piece;        
 class Move;
 enum class Color;
+
+#define HASHTAG '#'
+
+typedef enum PieceLetters
+{
+	Rook = 'r',
+	Knight = 'n',
+	Bishop = 'b',
+	Queen = 'q',
+	King = 'k',
+	Pawn = 'p'
+};
 
 class Board 
 {
@@ -11,6 +32,7 @@ private:
 
 	// methods
 	bool inBoard(int row, int col) const;
+	Piece* createPieceFromChar(char ch) const;
 
 public:
 	//Methods
