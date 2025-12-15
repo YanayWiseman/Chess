@@ -19,14 +19,14 @@ using std::string;
 typedef enum Codes
 {
 	legalMove,
-	legalMoveCheck,
-	notValidSource,
-	notValidDest,
-	selfCheck,
-	notInBoard,
-	pieceIllegal,
-	noMove,
-	legalMoveCheckMate
+	legalMoveCheck,    // move caused check on enemy
+	notValidSource,    // src pos isn't player's piece
+	notValidDest,      // dst pos is the piece of the same team as the sec
+	selfCheck,         // movement can cause self check
+	notInBoard,		   // one of the positions is not within the board
+	pieceIllegal,	   // illegal movement of the piece
+	noMove,			   // src is dst
+	legalMoveCheckMate // move cause checkmate (game is over)
 } Codes;
 
 class Manager
