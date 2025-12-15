@@ -6,6 +6,9 @@
 #include <string.h>
 #include <chrono>
 #include "ProtocolCrafter.h"
+#include "Board.h"
+#include "Piece.h"
+#include "Move.h"
 
 #define KB 1024
 
@@ -15,14 +18,22 @@ using std::string;
 
 class Manager
 {
-protected:
+private:
+	// Fields
+	Board _board;
+	Color _turn;
 	bool _won;
-	int _turn;  // 0 -> white, 1 -> black
-	bool _isCheck; // current king is in check position
-	string _code;  // input recieved from the froneEnd
+	bool _inCheck;
+
+	void updateTurn();
+	void CheckGameState();
+
 public:
 	// methods
 	//c'tor
 	Manager() = default;  // temp
-	void manageGame();
+	void manageGame(); // runGameLoop
+	char makeMove(const Move& move);
+	char validateMove(const Move& move);
+
 };
