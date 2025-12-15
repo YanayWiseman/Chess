@@ -1,5 +1,7 @@
 #include <vector>
 #include <iostream>
+#include "Board.h"
+#include "Move.h"
 
 /*
 	Using 'enum class' for safer access

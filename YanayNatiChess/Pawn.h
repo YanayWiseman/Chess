@@ -10,5 +10,5 @@ public:
 	// d'tor
 	virtual ~Pawn() = default;
 
-	void move(int dstRow, int dstCol) override;
+	bool canMove(const Move& move, const Board& board) const override;
 };

@@ -127,6 +127,7 @@
     <ClCompile Include="..\King.cpp" />
     <ClCompile Include="..\Knight.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Move.cpp" />
     <ClCompile Include="..\Pawn.cpp" />
     <ClCompile Include="..\ProtocolCrafter.cpp" />
     <ClCompile Include="..\Queen.cpp" />
@@ -136,7 +137,6 @@
     <ClCompile Include="..\‏‏Manager.cpp" />
     <ClCompile Include="..\‏‏MovementCheck.cpp" />
     <ClCompile Include="..\‏‏Piece.cpp" />
-    <ClCompile Include="Move.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Bishop.h" />
@@ -144,6 +144,7 @@
     <ClInclude Include="..\King.h" />
     <ClInclude Include="..\Knight.h" />
     <ClInclude Include="..\Manager.h" />
+    <ClInclude Include="..\Move.h" />
     <ClInclude Include="..\MovementCheck.h" />
     <ClInclude Include="..\Pawn.h" />
     <ClInclude Include="..\Piece.h" />
@@ -153,7 +154,6 @@
     <ClInclude Include="..\Rook.h" />
     <ClInclude Include="..\stdafx.h" />
     <ClInclude Include="..\targetver.h" />
-    <ClInclude Include="Move.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
