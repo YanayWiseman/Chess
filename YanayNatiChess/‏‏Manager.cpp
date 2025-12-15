@@ -124,3 +124,33 @@ char Manager::validateMove(const Move& move)
 	// move is legal and didnt put enemy in check or won the game (0)
 	return legalMove;
 }
+
+/*
+	function to do the move if its legal
+	input: the move to do
+	output: 0 - 8 accoording to the game protocol
+*/
+
+char Manager::makeMove(const Move& move)
+{
+	char result = validateMove(move);
+
+	if (result != legalMove && result != legalMoveCheck && result != legalMoveCheckMate)
+	{
+		return result;
+	}
+
+	// apply the movement
+	this->_board.movePiece(move);
+
+	// update the game state flags
+	CheckGameState();
+
+	// if game is not over, swap the player
+	if (this->_won)
+	{
+		updateTurn();
+	}
+
+	return result;
+}
