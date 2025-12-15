@@ -36,6 +36,8 @@ public:
 	// Ctor & Dtor
 	Piece(Color color, PieceType type);
 	virtual ~Piece() = default;
+	// deep copy c'tor
+	virtual Piece* clone() const = 0;
 	
 	// Getters
 	Color getColor() const;

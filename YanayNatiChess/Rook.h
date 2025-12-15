@@ -8,6 +8,8 @@ public:
 
 	// d'tor
 	virtual ~Rook() = default;
+	// deep copy c'tor
+	virtual Piece* clone() const override;
 
 	bool canMove(const Move& move, const Board& board) const override;
 };

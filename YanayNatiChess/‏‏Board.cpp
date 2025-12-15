@@ -251,3 +251,44 @@ bool Board::isKingInCheck(Color curColor) const
 
 	return false;
 }
+
+/*
+	Operator method - deep copy of the board
+	input: the other board to copy to
+	output: reference to the board
+*/
+
+Board& Board::operator=(const Board& other)
+{
+	if (this == &other)  // self copy check
+	{
+		return *this;
+	}
+
+	int i = 0, j = 0;
+
+	// delete this's values
+	for (i = 0; i < this->SIZE; i++)
+	{
+		for (j = 0; j < this->SIZE; j++)
+		{
+			if (this->_squares[i][j])
+			{
+				delete this->_squares[i][j];
+				this->_squares[i][j] = nullptr;
+			}
+		}
+	}
+
+	// copy 
+	for (i = 0; i < this->SIZE; i++)
+	{
+		for (j = 0; j < this->SIZE; j++)
+		{
+			if (this->_squares[i][j])
+			{
+				this->_squares[i][j] = other._squares[i][j].clone();
+			}
+		}
+	}
+}

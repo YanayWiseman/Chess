@@ -35,10 +35,12 @@ private:
 	Piece* createPieceFromChar(char ch) const;
 
 public:
-	//Methods
+	//Methods (big 3)
 	// c'tor & d'tor
 	Board();
 	~Board();
+	// copy operator
+	Board& operator=(const Board& other);
 
 	// Getter
 	const Piece* getPiece(int row, int col) const;

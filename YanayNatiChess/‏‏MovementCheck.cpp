@@ -98,3 +98,19 @@ bool MovementCheck::isDiagonalPathClear(const Move& move, const Board& board)
 
 	return true;  // Path clear
 }
+
+
+/*
+	This function checks if a move causes a check on a king of a given color
+	input: Wanted move, Current board and Players color
+	output: Does it cause check, if does is true if it doesn't false
+*/
+bool MovementCheck::causesCheck(const Move& move, const Board& board, Color kingColor) 
+{
+	Board tempBoard = board;
+	tempBoard.movePiece(move);
+
+	bool isCheck = tempBoard.isKingInCheck(kingColor);
+
+	return isCheck;
+}
