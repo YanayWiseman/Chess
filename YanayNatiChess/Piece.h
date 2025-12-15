@@ -1,15 +1,16 @@
 #include <vector>
 #include <iostream>
-#include "Board.h"
-#include "Move.h"
+
+class Move;
+class Board;
 
 /*
 	Using 'enum class' for safer access
 	How to access:
 	Color::White || PieceType::Rook
 */ 
-enum class Color { White, Black };
-enum class PieceType { Pawn, Bishop, Knight, Rook, Queen, King };
+typedef enum Color { White, Black } Color;
+typedef enum PieceType { Pawn, Bishop, Knight, Rook, Queen, King } PieceType;
 
 class Piece
 {

@@ -1,3 +1,6 @@
+#include "Move.h"
+#include <string>
+using std::string;
 
 class ProtocolCrafter
 {

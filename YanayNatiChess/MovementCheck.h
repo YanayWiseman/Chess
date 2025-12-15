@@ -1,6 +1,8 @@
 /*
 	static class that handles movement checks
 */
+class Move;
+class Board;
 
 class MovementCheck 
 {

@@ -1,3 +1,7 @@
+class Piece;        
+class Move;
+enum Color;
+
 class Board 
 {
 private:
@@ -12,7 +16,7 @@ public:
 
 	// Helpers
 	bool isEmpty(int row, int col) const;
-	bool isPathClear(const Move& move) const;
-	void movePiece(const Move& move);
+	bool isPathClear(const Move move) const;
+	void movePiece(const Move move);
 	bool isKingInCheck(Color color) const;
 };
