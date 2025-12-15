@@ -1,4 +1,3 @@
-#include <vector>
 #include <iostream>
 
 class Move;
@@ -8,9 +7,23 @@ class Board;
 	Using 'enum class' for safer access
 	How to access:
 	Color::White || PieceType::Rook
-*/ 
-typedef enum class Color { White, Black } Color;
-typedef enum class PieceType{ Pawn, Bishop, Knight, Rook, Queen, King } PieceType;
+*/
+
+typedef enum class Color
+{
+	White,
+	Black
+} Color;
+
+typedef enum class PieceType
+{ 
+	Pawn,
+	Bishop, 
+	Knight,
+	Rook,
+	Queen,
+	King 
+} PieceType;
 
 class Piece
 {

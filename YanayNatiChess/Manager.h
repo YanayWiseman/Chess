@@ -25,6 +25,7 @@ private:
 	bool _won;
 	bool _inCheck;
 
+	// methods
 	void updateTurn();
 	void CheckGameState();
 
@@ -35,5 +36,4 @@ public:
 	void manageGame(); // runGameLoop
 	char makeMove(const Move& move);
 	char validateMove(const Move& move);
-
 };
