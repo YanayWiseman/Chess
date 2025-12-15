@@ -151,5 +151,37 @@ void Board::movePiece(const Move& move)
 	// put source piece in destination and clear it
 	this->_squares[dstRow][dstCol] = piece;
 	this->_squares[srcRow][srcCol] = nullptr;
+}
+
+/*
+	Method to check if the destination position is occupied with an enemy piece or a nullptr
+	input: the movement (object)
+	output: boolean, true if there is an enemy, false otherwise
+*/
+
+bool Board::isDestValid(const Move& move) const
+{
+	int srcRow = move.getSrcRow();
+	int srcCol = move.getSrcCol();
+	int dstRow = move.getDstRow();
+	int dstCol = move.getDstCol();
+
+	if (isEmpty(dstRow, dstCol))  // is nullptr
+	{
+		return true;
+	}
 	
+	// get pieces at src and dst positions
+	const Piece* srcPiece = getPiece(srcRow, srcCol);
+	const Piece* dstPiece = getPiece(dstRow, dstCol);
+
+	Color srcColor = srcPiece->getColor();
+	Color dstColor = dstPiece->getColor();
+
+	if (srcColor != dstColor)  // enemy
+	{
+		return true;
+	}
+
+	return false;  // dst is a piece with the same color of the src
 }

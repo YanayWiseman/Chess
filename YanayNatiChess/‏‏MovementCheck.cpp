@@ -2,7 +2,11 @@
 #include "Board.h"
 #include "Move.h"
 
-
+/*
+	This function checks if there are no pieces in the moves path
+	input: Wanted move, Current board
+	output: Is the path clear?
+*/
 bool isStraightPathClear(const Move& move, const Board& board) 
 {
 	int startRow = move.getSrcRow();
@@ -10,43 +14,45 @@ bool isStraightPathClear(const Move& move, const Board& board)
 	int endRow = move.getDstRow();
 	int endCol = move.getDstCol();
 
-	// Moving horizontally
-	if (startRow == endRow) 
+	bool isHorizontal = (startRow == endRow);
+	bool isVertical = (startCol == endCol);
+
+	if (!isHorizontal && !isVertical) 
 	{
-		int direction = (endCol > startCol) ? 1 : -1;
-		int currentCol = startCol + direction;
+		return false; // later will add exception
+	}
+
+	// Horizontal movement
+	if (isHorizontal) 
+	{
+		int stepCol = (endCol > startCol) ? 1 : -1;
+		int currentCol = startCol + stepCol;
 
 		while (currentCol != endCol) 
 		{
-			// Check each square between start and end
-			if (!board.isEmpty(startRow, currentCol)) 
+			if (!board.isEmpty(startRow, currentCol))
 			{
-				return false;  // Path blocked
+				return false;
 			}
-			currentCol += direction;
+			currentCol += stepCol;
 		}
-		return true;  // Path is clear
 	}
-	// Moving vertically (same column)  
-	else if (startCol == endCol) 
+
+	// Vertical movement
+	else 
 	{
-		int direction = (endRow > startRow) ? 1 : -1;
-		int currentRow = startRow + direction;
+		int stepRow = (endRow > startRow) ? 1 : -1;
+		int currentRow = startRow + stepRow;
 
 		while (currentRow != endRow) 
 		{
-			if (!board.isEmpty(currentRow, startCol)) 
+			if (!board.isEmpty(currentRow, startCol))
 			{
-				return false;  // Path blocked
+				return false;
 			}
-			currentRow += direction;
+			currentRow += stepRow;
 		}
-		return true;  // Path is clear
 	}
 
-	// Not a straight line move
-	else 
-	{
-		return false;  // Or throw exception
-	}
+	return true;
 }
