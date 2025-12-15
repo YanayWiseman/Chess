@@ -21,3 +21,6 @@ Piece* Queen::clone() const
 {
 	return new Queen(*this);
 }
+
+// just for testing (nati, edit this)
+bool Queen::canMove(const Move& move, const Board& board) const { return true; }

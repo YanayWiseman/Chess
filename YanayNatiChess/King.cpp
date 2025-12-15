@@ -21,3 +21,6 @@ Piece* King::clone() const
 {
 	return new King(*this);
 }
+
+// just for testing (nati, edit this)
+bool King::canMove(const Move& move, const Board& board) const { return true; }

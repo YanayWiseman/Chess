@@ -21,3 +21,6 @@ Piece* Pawn::clone() const
 {
 	return new Pawn(*this);
 }
+
+// just for testing (nati, edit this)
+bool Pawn::canMove(const Move& move, const Board& board) const { return true; }

@@ -22,7 +22,7 @@ Move& ProtocolCrafter::parseMove(string moveStr)
 
 const char* ProtocolCrafter::createResponse(char code)
 {
-	char* returnCode = new char[2];
+	static char returnCode[2];
 	returnCode[0] = code;
 	returnCode[1] = '\0';
 

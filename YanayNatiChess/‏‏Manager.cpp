@@ -37,12 +37,10 @@ void Manager::manageGame()
 		char code = makeMove(move);
 		const char* myCode = crafter.createResponse(code);
 
-		strcpy_s(msgToGraphics, myCode); // msgToGraphics should contain the result of the operation
+		strcpy_s(msgToGraphics, KB, myCode); // msgToGraphics should contain the result of the operation
 		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics
 
 		msgFromGraphics = pipe.getMessageFromGraphics();  // get message from graphics
-
-		delete[] myCode;
 	}
 
 	pipe.close();

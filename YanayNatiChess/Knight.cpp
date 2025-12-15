@@ -1,4 +1,6 @@
 #include "Knight.h"
+#include "Move.h"
+#include "Board.h"
 
 /*
 	Constructor method to construct the Knight object
@@ -21,3 +23,6 @@ Piece* Knight::clone() const
 {
 	return new Knight(*this);
 }
+
+// just for testing (nati, edit this)
+bool Knight::canMove(const Move& move, const Board& board) const { return true; }

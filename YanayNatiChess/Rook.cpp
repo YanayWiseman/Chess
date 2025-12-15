@@ -21,3 +21,6 @@ Piece* Rook::clone() const
 {
 	return new Rook(*this);
 }
+
+// just for testing (nati, edit this)
+bool Rook::canMove(const Move& move, const Board& board) const { return true; }

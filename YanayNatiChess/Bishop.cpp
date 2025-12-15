@@ -21,3 +21,6 @@ Piece* Bishop::clone() const
 {
 	return new Bishop(*this);
 }
+
+// just for testing (nati, edit this)
+bool Bishop::canMove(const Move& move, const Board& board) const { return true; }
