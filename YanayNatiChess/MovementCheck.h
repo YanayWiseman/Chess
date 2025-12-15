@@ -1,6 +1,3 @@
-#include "Board.h"
-#include "Move.h"
-
 /*
 	static class that handles movement checks
 */
