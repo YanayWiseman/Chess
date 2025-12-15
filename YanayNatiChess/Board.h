@@ -47,5 +47,5 @@ public:
 	bool isEmpty(int row, int col) const;
 	bool isDestValid(const Move& move) const;
 	void movePiece(const Move& move);
-	bool isKingInCheck(Color color) const;
+	bool isKingInCheck(Color curColor) const;
 };

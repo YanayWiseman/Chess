@@ -185,3 +185,49 @@ bool Board::isDestValid(const Move& move) const
 
 	return false;  // dst is a piece with the same color of the src
 }
+
+/*
+	Method to check if the current king is in check position by 
+	iterating over all of the pieces and checking if the can harm the king
+	input: the current color playing
+	output: boolean, true if king is in check and false otherwise
+*/
+
+bool Board::isKingInCheck(Color curColor) const
+{
+	// find current king's position
+	int kingRow = -1, kingCol = -1;  // -1 to check if king was found
+	int i = 0, j = 0;
+	const Piece* curPiece = nullptr;
+	// so we don't iterate over the entire board if unneeded
+	bool foundFlag = false;
+
+	// iterate over the entire board
+	for (i = 0; i < this->SIZE && !foundFlag; i++)
+	{
+		for (j = 0; j < this->SIZE && !foundFlag; j++)
+		{
+			curPiece = getPiece(i, j);
+
+			// check if curPiece is not empty, the same color as the king and is a king
+			bool isKing = curPiece->getType() == PieceType::TypeKing;
+			bool sameColor = curPiece->getColor() == curColor;
+
+			if (curPiece && sameColor && isKing)
+			{
+				kingRow = i;
+				kingCol = j;
+				foundFlag = true;
+			}
+		}
+	}
+
+	// if king wasn't found
+	if (kingRow == -1 || kingCol == -1)
+	{
+		// exception
+		return false;
+	}
+
+
+}
