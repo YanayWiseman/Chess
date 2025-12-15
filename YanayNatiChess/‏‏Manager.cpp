@@ -154,3 +154,14 @@ char Manager::makeMove(const Move& move)
 
 	return result;
 }
+
+/*
+	function to update the turn every turn to the other player
+	input: no input values
+	output: no return values
+*/
+
+void Manager::updateTurn()
+{
+	this->_turn = (this->_turn == Color::White) ? Color::Black : Color::White;
+}
