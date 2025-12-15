@@ -16,6 +16,19 @@ using std::cout;
 using std::endl;
 using std::string;
 
+typedef enum Codes
+{
+	legalMove,
+	legalMoveCheck,
+	notValidSource,
+	notValidDest,
+	selfCheck,
+	notInBoard,
+	pieceIllegal,
+	noMove,
+	legalMoveCheckMate
+} Codes;
+
 class Manager
 {
 private:

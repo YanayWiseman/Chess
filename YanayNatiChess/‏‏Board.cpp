@@ -82,3 +82,23 @@ bool Board::isEmpty(int row, int col) const
 {
 	return getPiece(row, col) == nullptr;
 }
+
+/*
+	function to move the piece across the board to the destination position
+	input: the move (src and dst)
+	output: no return values
+	IMPORTANT: this function is called only when we know for certain that the move is legal!!
+*/
+
+void Board::movePiece(const Move move)
+{
+	int srcRow = move.getSrcCol();
+	int srcCol = move.getSrcCol();
+	int dstRow = move.getDstRow();
+	int dstCol = move.getDstCol();
+
+	Piece* piece = this->_squares[srcRow][srcCol];
+
+	// delete it
+	delete 
+}

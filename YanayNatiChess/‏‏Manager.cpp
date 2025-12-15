@@ -27,17 +27,22 @@ void Manager::manageGame()
 	// get message from graphics
 	string msgFromGraphics = pipe.getMessageFromGraphics();
 
+	ProtocolCrafter crafter;
+
 	while (msgFromGraphics != "quit")
 	{
-		//const char* myCode = ProtocolCrafter::craftCode();
-		strcpy_s(msgToGraphics, "myCode"); // msgToGraphics should contain the result of the operation
+		Move move = crafter.parseMove(msgFromGraphics);
+		char code = validateMove(move);
+
+		const char* myCode = crafter.createResponse(code);
+
+		strcpy_s(msgToGraphics, myCode); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
 		pipe.sendMessageToGraphics(msgToGraphics);
 
 		// get message from graphics
 		msgFromGraphics = pipe.getMessageFromGraphics();
-		//delete myCode;
 	}
 
 	pipe.close();
