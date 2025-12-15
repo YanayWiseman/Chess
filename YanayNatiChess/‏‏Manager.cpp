@@ -50,5 +50,5 @@ void Manager::manageGame()
 
 char Manager::validateMove(const Move& move)
 {
-	return '6';
+	return '0';
 }
