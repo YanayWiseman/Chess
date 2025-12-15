@@ -1,6 +1,6 @@
 class Piece;        
 class Move;
-enum Color;
+enum class Color;
 
 class Board 
 {

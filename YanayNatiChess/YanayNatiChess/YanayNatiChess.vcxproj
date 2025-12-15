@@ -128,6 +128,7 @@
     <ClCompile Include="..\Knight.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\Move.cpp" />
+    <ClCompile Include="..\MovementCheck.cpp" />
     <ClCompile Include="..\Pawn.cpp" />
     <ClCompile Include="..\ProtocolCrafter.cpp" />
     <ClCompile Include="..\Queen.cpp" />

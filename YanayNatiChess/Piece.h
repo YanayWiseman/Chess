@@ -9,8 +9,8 @@ class Board;
 	How to access:
 	Color::White || PieceType::Rook
 */ 
-typedef enum Color { White, Black } Color;
-typedef enum PieceType { Pawn, Bishop, Knight, Rook, Queen, King } PieceType;
+typedef enum class Color { White, Black } Color;
+typedef enum class PieceType{ Pawn, Bishop, Knight, Rook, Queen, King } PieceType;
 
 class Piece
 {
