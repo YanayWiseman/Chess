@@ -4,7 +4,6 @@
 #include <thread>
 #include <stdlib.h>
 #include <string.h>
-#include <thread>
 #include <chrono>
 #include "ProtocolCrafter.h"
 

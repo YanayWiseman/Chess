@@ -8,10 +8,10 @@
 
 void Manager::manageGame()
 {
-	Pipe p;
-	bool isConnect = p.connect();
+	Pipe pipe;
+	bool isConnect = pipe.connect();
 
-	string ans;
+	string answer;
 	if (!isConnect)
 	{
 		return;
@@ -22,10 +22,10 @@ void Manager::manageGame()
 	// begging board
 	strcpy_s(msgToGraphics, "rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR0");
 
-	p.sendMessageToGraphics(msgToGraphics);   // send the board string
+	pipe.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
-	string msgFromGraphics = p.getMessageFromGraphics();
+	string msgFromGraphics = pipe.getMessageFromGraphics();
 
 	while (msgFromGraphics != "quit")
 	{
@@ -33,12 +33,12 @@ void Manager::manageGame()
 		strcpy_s(msgToGraphics, "myCode"); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);
+		pipe.sendMessageToGraphics(msgToGraphics);
 
 		// get message from graphics
-		msgFromGraphics = p.getMessageFromGraphics();
+		msgFromGraphics = pipe.getMessageFromGraphics();
 		//delete myCode;
 	}
 
-	p.close();
+	pipe.close();
 }
