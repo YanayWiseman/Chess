@@ -1,24 +1,30 @@
 #include <vector>
 #include <iostream>
-#include "MovementCheck.h"
+
+/*
+	Using 'enum class' for safer access
+	How to access:
+	Color::White || PieceType::Rook
+*/ 
+enum class Color { White, Black };
+enum class PieceType { Pawn, Bishop, Knight, Rook, Queen, King };
 
 class Piece
 {
 protected:
 	//fields
-	int _row;
-	int _col;
-	int _color;
-	// first digit -> row, second digit -> col
-	std::vector<int> _canMoveTo;
+	Color _color;
+	PieceType _type;
 
 public:
-	// methods
-	//c'tor
-	//Piece(const int row, const int col, const int color);
+	// Ctor & Dtor
+	Piece(Color color, PieceType type);
+	virtual ~Piece() = default;
+	
+	// Getters
+	Color getColor() const;
+	PieceType getType() const;
 
-	//d'tor
-	//virtual ~Piece();
-
-	virtual void move(int dstRow, int dstCol) = 0;
+	// Helpers
+	virtual bool canMove(const Move& move, const Board& board) const = 0;
 };
