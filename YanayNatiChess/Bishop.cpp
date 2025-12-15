@@ -10,3 +10,14 @@ Bishop::Bishop(Color color, PieceType type) : Piece(color, type)
 {
 
 }
+
+/*
+	Copy c'tor to deep copy the piece
+	input: no input values
+	output: pointer to the piece
+*/
+
+Piece* Bishop::clone() const
+{
+	return new Bishop(*this);
+}

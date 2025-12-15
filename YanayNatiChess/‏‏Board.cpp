@@ -280,14 +280,14 @@ Board& Board::operator=(const Board& other)
 		}
 	}
 
-	// copy 
+	// copy using copy c'tor that is in piece (pure)	
 	for (i = 0; i < this->SIZE; i++)
 	{
 		for (j = 0; j < this->SIZE; j++)
 		{
 			if (this->_squares[i][j])
 			{
-				this->_squares[i][j] = other._squares[i][j].clone();
+				this->_squares[i][j] = other._squares[i][j]->clone();
 			}
 		}
 	}

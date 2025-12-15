@@ -10,3 +10,14 @@ Queen::Queen(Color color, PieceType type) : Piece(color, type)
 {
 
 }
+
+/*
+	Copy c'tor to deep copy the piece
+	input: no input values
+	output: pointer to the piece
+*/
+
+Piece* Queen::clone() const
+{
+	return new Queen(*this);
+}
