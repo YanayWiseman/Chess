@@ -1,5 +1,8 @@
 #pragma once
 
+#define BACKTICK  '`'
+#define ZERO_CHAR '0'
+
 /*
 	class that stores the move info
 */
@@ -13,6 +16,10 @@ private:
 	int _dstCol;
 
 public:
+	//c'tor & d'tor
+	Move(int srcRow, int srcCol, int dstRow, int dstCol);
+	~Move() = default;
+
 	// Methods
 	int getSrcRow() const;
 	int getSrcCol() const;
