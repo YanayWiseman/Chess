@@ -10,6 +10,9 @@ private:
 	Piece* _squares[SIZE][SIZE];
 public:
 	//Methods
+	// c'tor & d'tor
+	Board();
+	~Board();
 
 	// Getter
 	const Piece* getPiece(int row, int col) const;
