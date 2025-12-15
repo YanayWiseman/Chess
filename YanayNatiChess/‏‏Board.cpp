@@ -229,5 +229,25 @@ bool Board::isKingInCheck(Color curColor) const
 		return false;
 	}
 
+	for (i = 0; i < this->SIZE; i++)
+	{
+		for (j = 0; j < this->SIZE; j++)
+		{
+			curPiece = getPiece(i, j);
 
+			// is an enemy
+			if (curPiece && curPiece->getColor() != curColor)
+			{
+				// to check if the current piece can reach the king, we make a move for it
+				Move attackMove(i, j, kingRow, kingCol);
+
+				if (curPiece->canMove(attackMove, *this))
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 }
