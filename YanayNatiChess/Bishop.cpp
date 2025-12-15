@@ -1,8 +1,12 @@
 #include "Bishop.h"
 
 /*
-	function to move the bishop according to user's input
-	input: destination row, destinaton column
-	output: no reutrn values
+	Constructor method to construct the bishop object
+	input: the color of the piece and its type
+	output no return values
 */
 
+Bishop::Bishop(Color color, PieceType type) : Piece(color, type)
+{
+
+}

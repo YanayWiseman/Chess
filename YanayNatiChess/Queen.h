@@ -3,9 +3,8 @@
 class Queen : public Piece
 {
 public:
-	// Queen has no fields, so we can use the default implementation
 	// c'tor
-	Queen() = default;
+	Queen(Color color, PieceType type);
 
 	// d'tor
 	virtual ~Queen() = default;

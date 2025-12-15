@@ -1,8 +1,12 @@
 #include "Pawn.h"
 
 /*
-	function to move the Pawn according to user's input
-	input: destination row, destinaton column
-	output: no reutrn values
+	Constructor method to construct the Pawn object
+	input: the color of the piece and its type
+	output no return values
 */
 
+Pawn::Pawn(Color color, PieceType type) : Piece(color, type)
+{
+
+}

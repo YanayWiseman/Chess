@@ -17,12 +17,12 @@ typedef enum class Color
 
 typedef enum class PieceType
 { 
-	Pawn,
-	Bishop, 
-	Knight,
-	Rook,
-	Queen,
-	King 
+	TypePawn,
+	TypeBishop,
+	TypeKnight,
+	TypeRook,
+	TypeQueen,
+	TypeKing
 } PieceType;
 
 class Piece

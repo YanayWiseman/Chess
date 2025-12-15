@@ -3,9 +3,8 @@
 class Rook : public Piece
 {
 public:
-	// Rook has no fields, so we can use the default implementation
 	// c'tor
-	Rook() = default;
+	Rook(Color color, PieceType type);
 
 	// d'tor
 	virtual ~Rook() = default;

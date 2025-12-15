@@ -3,9 +3,8 @@
 class Pawn : public Piece
 {
 public:
-	// Pawn has no fields, so we can use the default implementation
 	// c'tor
-	Pawn() = default;
+	Pawn(Color color, PieceType type);
 
 	// d'tor
 	virtual ~Pawn() = default;

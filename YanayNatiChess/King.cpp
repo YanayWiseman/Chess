@@ -1,8 +1,12 @@
 #include "King.h"
 
 /*
-	function to move the King according to user's input
-	input: destination row, destinaton column
-	output: no reutrn values
+	Constructor method to construct the King object
+	input: the color of the piece and its type
+	output no return values
 */
 
+King::King(Color color, PieceType type) : Piece(color, type)
+{
+
+}

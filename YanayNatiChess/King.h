@@ -3,9 +3,8 @@
 class King : public Piece
 {
 public:
-	// King has no fields, so we can use the default implementation
 	// c'tor
-	King() = default;
+	King(Color color, PieceType type);
 
 	// d'tor
 	virtual ~King() = default;

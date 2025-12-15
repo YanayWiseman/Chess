@@ -27,7 +27,7 @@ Board::Board()
 		{
 			char ch = INITIAL_BOARD[i * this->SIZE + j];
 
-			(ch == HASHTAG) ? this->_squares[i][j] = nullptr : this->_squares[i][j] = createPieceFromChar(ch);
+			this->_squares[i][j] = (ch == HASHTAG) ? nullptr : createPieceFromChar(ch);
 		}
 	}
 }
@@ -40,11 +40,31 @@ Board::Board()
 
 Piece* Board::createPieceFromChar(char ch) const
 {
+	// return the correct piece pointer according to the char
 	Color color = islower(ch) ? Color::White : Color::Black;
-	switch ((int)ch)
+
+	switch (tolower(ch))
 	{
-	case Rook:
-		//return new Rook(color);
+	case RookCh:
+		return new Rook(color, PieceType::TypeRook);
+
+	case KnightCh:
+		return new Knight(color, PieceType::TypeKnight);
+
+	case BishopCh:
+		return new Bishop(color, PieceType::TypeBishop);
+
+	case QueenCh:
+		return new Queen(color, PieceType::TypeQueen);
+
+	case KingCh:
+		return new King(color, PieceType::TypeKing);
+
+	case PawnCh:
+		return new Pawn(color, PieceType::TypePawn);
+
+	default:
+		return nullptr;
 	}
 }
 
@@ -118,7 +138,7 @@ bool Board::isEmpty(int row, int col) const
 
 void Board::movePiece(const Move& move)
 {
-	int srcRow = move.getSrcCol();
+	int srcRow = move.getSrcRow();
 	int srcCol = move.getSrcCol();
 	int dstRow = move.getDstRow();
 	int dstCol = move.getDstCol();

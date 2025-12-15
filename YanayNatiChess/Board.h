@@ -15,12 +15,12 @@ enum class Color;
 
 typedef enum PieceLetters
 {
-	Rook = 'r',
-	Knight = 'n',
-	Bishop = 'b',
-	Queen = 'q',
-	King = 'k',
-	Pawn = 'p'
+	RookCh = 'r',
+	KnightCh = 'n',
+	BishopCh = 'b',
+	QueenCh = 'q',
+	KingCh = 'k',
+	PawnCh = 'p'
 };
 
 class Board 

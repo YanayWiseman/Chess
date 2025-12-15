@@ -1,8 +1,12 @@
 #include "Queen.h"
 
 /*
-	function to move the Queen according to user's input
-	input: destination row, destinaton column
-	output: no reutrn values
+	Constructor method to construct the Queen object
+	input: the color of the piece and its type
+	output no return values
 */
 
+Queen::Queen(Color color, PieceType type) : Piece(color, type)
+{
+
+}

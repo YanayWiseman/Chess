@@ -3,9 +3,8 @@
 class Knight : public Piece
 {
 public:
-	// Knight has no fields, so we can use the default implementation
 	// c'tor
-	Knight() = default;
+	Knight(Color color, PieceType type);
 
 	// d'tor
 	virtual ~Knight() = default;
