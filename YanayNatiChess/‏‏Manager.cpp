@@ -10,6 +10,8 @@ const int BOARD_SIZE = 8;
 
 void Manager::manageGame()
 {
+#ifdef _WIN32
+
 	Pipe pipe;
 	bool isConnect = pipe.connect();
 
@@ -44,6 +46,7 @@ void Manager::manageGame()
 	}
 
 	pipe.close();
+#endif 
 }
 
 /*
