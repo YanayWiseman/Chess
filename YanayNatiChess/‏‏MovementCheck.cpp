@@ -5,8 +5,9 @@
 /*
 	This function checks if there are no pieces in the moves path
 	input: Wanted move, Current board
-	output: Is the path clear?
+	output: Is the path clear, if it is true if it isn't false
 */
+
 bool isStraightPathClear(const Move& move, const Board& board) 
 {
 	int startRow = move.getSrcRow();
@@ -39,6 +40,7 @@ bool isStraightPathClear(const Move& move, const Board& board)
 	}
 
 	// Vertical movement
+
 	else 
 	{
 		int stepRow = (endRow > startRow) ? 1 : -1;
