@@ -75,9 +75,10 @@ Piece* Board::createPieceFromChar(char ch) const
 */
 void Board::printBoard() const
 {
-	for (int row = 0; row < 8; row++)
+	int row = 0, col = 0;
+	for (row = 0; row < 8; row++)
 	{
-		for (int col = 0; col < 8; col++)
+		for (col = 0; col < 8; col++)
 		{
 			const Piece* piece = _squares[row][col];
 

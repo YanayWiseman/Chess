@@ -1,24 +1,29 @@
 #include "Manager.h"
 
-int main()
+int main(void)
 {
-    Manager manager;
-    ProtocolCrafter crafter;
+	Manager manager;
 
-    std::string msgFromInput;
+	manager.manageGame();
 
-    // Loop until tester stops sending moves
-    while (std::cin >> msgFromInput && !manager.hasWon())
-    {
-        Move move = crafter.parseMove(msgFromInput);
+	return 0;
 
-        // Perform move and get the result code
-        char code = manager.makeMove(move);  // or whatever your function returns
-        const char* response = crafter.createResponse(code);
+	//Manager manager;
+	//ProtocolCrafter crafter;
 
-        // Send exactly 1 response character to stdout
-        std::cout << response << std::endl;
-    }
+	//std::string msgFromInput;
 
-    return 0;
+	//// Loop until tester stops sending moves
+	//while (std::cin >> msgFromInput && !manager.hasWon())
+	//{
+	//	Move move = crafter.parseMove(msgFromInput);
+
+	//	// Perform move and get the result code
+	//	char code = manager.makeMove(move);  // or whatever your function returns
+	//	const char* response = crafter.createResponse(code);
+
+	//	// Send exactly 1 response character to stdout
+	//	std::cout << response << std::endl;
+	//}
+
 }
