@@ -1,5 +1,5 @@
 #include "Bishop.h"
-
+#include "MovementCheck.h"
 /*
 	Constructor method to construct the bishop object
 	input: the color of the piece and its type
@@ -22,5 +22,13 @@ Piece* Bishop::clone() const
 	return new Bishop(*this);
 }
 
-// just for testing (nati, edit this)
-bool Bishop::canMove(const Move& move, const Board& board) const { return true; }
+/*
+	This function handles the logic for the Bishops movement
+	input: Wanted move and current board
+	output: Is the move possible for a Bishop to proform
+*/
+bool Bishop::canMove(const Move& move, const Board& board) const 
+{ 
+	bool checkBishopMove = MovementCheck::isDiagonalPathClear(move, board);
+	return checkBishopMove;
+}
