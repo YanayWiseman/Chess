@@ -49,8 +49,6 @@ void Manager::manageGame()
 		char code = makeMove(move);
 		const char* myCode = crafter.createResponse(code);
 
-		this->_board.printBoard();
-
 		strcpy_s(msgToGraphics, KB, myCode); // msgToGraphics should contain the result of the operation
 		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics
 
@@ -215,4 +213,15 @@ bool Manager::isKingAlive(Color kingColor) const
 		}
 	}
 	return false;
+}
+
+
+/*
+	this function returns the win status
+	input: none
+	output: none
+*/
+bool Manager::hasWon() const
+{
+	return this->_won;
 }

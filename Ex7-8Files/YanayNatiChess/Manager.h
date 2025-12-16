@@ -54,4 +54,5 @@ public:
 	void manageGame(); // runGameLoop
 	char makeMove(const Move& move);
 	char validateMove(const Move& move);
+	bool hasWon() const;
 };
