@@ -50,7 +50,7 @@ private:
 public:
 	// methods
 	//c'tor
-	Manager() = default;  // temp
+	Manager();  // temp
 	void manageGame(); // runGameLoop
 	char makeMove(const Move& move);
 	char validateMove(const Move& move);

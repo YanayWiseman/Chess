@@ -2,12 +2,22 @@
 
 const int BOARD_SIZE = 8;
 
+
+/*
+	manager ctor
+	input: no input values
+	output: no return values
+*/
+Manager::Manager() : _board(), _turn(Color::White), _won(false), _inCheck(false)
+{
+}
+
+
 /*
 	function to run the entire game
 	input: no input values
 	output: no return values
 */
-
 void Manager::manageGame()
 {
 #ifdef _WIN32
