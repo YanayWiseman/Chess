@@ -1,4 +1,5 @@
 #include "Queen.h"
+#include "MovementCheck.h"
 
 /*
 	Constructor method to construct the Queen object
@@ -22,5 +23,18 @@ Piece* Queen::clone() const
 	return new Queen(*this);
 }
 
-// just for testing (nati, edit this)
-bool Queen::canMove(const Move& move, const Board& board) const { return true; }
+/*
+	This function handles the logic for the Queens movement
+	input: Wanted move and current board
+	output: Is the move possible for a Queen to proform
+*/
+bool Queen::canMove(const Move& move, const Board& board) const 
+{ 
+	bool checkStraight = MovementCheck::isStraightPathClear(move, board);
+	bool checkDiagonal = MovementCheck::isDiagonalPathClear(move, board);
+
+	// Queen can move either diagonally or straight
+	bool checkQueenMove = (checkStraight || checkDiagonal);
+
+	return checkQueenMove;
+}
