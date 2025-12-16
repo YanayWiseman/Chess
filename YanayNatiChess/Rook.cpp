@@ -1,4 +1,5 @@
 #include "Rook.h"
+#include "MovementCheck.h"
 
 /*
 	Constructor method to construct the Rook object
@@ -22,5 +23,14 @@ Piece* Rook::clone() const
 	return new Rook(*this);
 }
 
-// just for testing (nati, edit this)
-bool Rook::canMove(const Move& move, const Board& board) const { return true; }
+/*
+	This function handles the logic for the Rooks movement
+	input: Wanted move and current board
+	output: Is the move possible for a Rooks to proform
+*/
+bool Rook::canMove(const Move& move, const Board& board) const 
+{
+	// Rook can only move in a straight line
+	bool checkRookMove = MovementCheck::isStraightPathClear(move, board);
+	return checkRookMove;
+}
