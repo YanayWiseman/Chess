@@ -47,10 +47,6 @@ bool Knight::canMove(const Move& move, const Board& board) const
 	bool checkRowLong = (KNIGHT_LONG == absRowDiff ) && (KNIGHT_SHORT == absColDiff);
 	bool checkColLong = (KNIGHT_LONG == absColDiff ) && (KNIGHT_SHORT == absRowDiff);
 
-	if (checkRowLong || checkColLong) 
-	{
-		return true;
-	}
-
-	return false; 
+	bool checkKnightMove = (checkRowLong || checkColLong);
+	return checkKnightMove;
 }
