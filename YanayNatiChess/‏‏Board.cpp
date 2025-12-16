@@ -195,53 +195,76 @@ bool Board::isDestValid(const Move& move) const
 
 bool Board::isKingInCheck(Color curColor) const
 {
-	// find current king's position
-	int kingRow = -1, kingCol = -1;  // -1 to check if king was found
-	int i = 0, j = 0;
-	const Piece* curPiece = nullptr;
+	// -1 to check if king was found
+	int kingRow = -1;
+	int kingCol = -1;
+
+	int row = 0;
+	int col = 0;
+
+	const Piece* piece = nullptr;
+
 	// so we don't iterate over the entire board if unneeded
-	bool foundFlag = false;
+	bool foundKing = false;
 
-	// iterate over the entire board
-	for (i = 0; i < this->SIZE && !foundFlag; i++)
+
+	// Go over the whole board and find the kind
+	for (row = 0; row < this->SIZE && !foundKing; row++)
 	{
-		for (j = 0; j < this->SIZE && !foundFlag; j++)
+		for (col = 0; col < this->SIZE && !foundKing; col++)
 		{
-			curPiece = getPiece(i, j);
+			piece = getPiece(row, col);
 
-			// check if curPiece is not empty, the same color as the king and is a king
-			bool isKing = curPiece->getType() == PieceType::TypeKing;
-			bool sameColor = curPiece->getColor() == curColor;
+			bool isNotEmpty = (piece != nullptr);
+			bool sameColor = false;
+			bool isKing = false;
 
-			if (curPiece && sameColor && isKing)
+			// To Not Derefrence a NULL pointer
+			if (isNotEmpty)
 			{
-				kingRow = i;
-				kingCol = j;
-				foundFlag = true;
+				sameColor = (piece->getColor() == curColor);
+				isKing = (piece->getType() == PieceType::TypeKing);
+			}
+
+			if (isNotEmpty && sameColor && isKing)
+			{
+				kingRow = row;
+				kingCol = col;
+				foundKing = true;
 			}
 		}
 	}
 
-	// if king wasn't found
-	if (kingRow == -1 || kingCol == -1)
+	// King not found (should not happen)
+	if (!foundKing)
 	{
-		// exception
-		return false;
+		return false; // Exception
 	}
 
-	for (i = 0; i < this->SIZE; i++)
-	{
-		for (j = 0; j < this->SIZE; j++)
-		{
-			curPiece = getPiece(i, j);
 
-			// is an enemy
-			if (curPiece && curPiece->getColor() != curColor)
+	// Check if any enemy piece attacks the king
+	for (row = 0; row < this->SIZE; row++)
+	{
+		for (col = 0; col < this->SIZE; col++)
+		{
+			piece = getPiece(row, col);
+
+			bool isNotEmpty = (piece != nullptr);
+			bool isEnemy = false;
+
+			// To Not Derefrence a NULL pointer
+			if (isNotEmpty)
+			{
+				isEnemy = (piece->getColor() != curColor);
+			}
+
+			// Is an enemy
+			if (isNotEmpty && isEnemy)
 			{
 				// to check if the current piece can reach the king, we make a move for it
-				Move attackMove(i, j, kingRow, kingCol);
+				Move attackMove(row, col, kingRow, kingCol);
 
-				if (curPiece->canMove(attackMove, *this))
+				if (piece->canMove(attackMove, *this))
 				{
 					return true;
 				}
