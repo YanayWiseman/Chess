@@ -267,28 +267,27 @@ Board& Board::operator=(const Board& other)
 
 	int i = 0, j = 0;
 
-	// delete this's values
+	// Clear current board
 	for (i = 0; i < this->SIZE; i++)
 	{
 		for (j = 0; j < this->SIZE; j++)
 		{
-			if (this->_squares[i][j])
+			delete _squares[i][j];
+			_squares[i][j] = nullptr;
+		}
+	}
+
+	// Deep copy from other board using copy c'tor that is in piece (pure)	
+	for (i = 0; i < this->SIZE; i++)
+	{
+		for (j = 0; j < this->SIZE; j++)
+		{
+			if (other._squares[i][j])
 			{
-				delete this->_squares[i][j];
-				this->_squares[i][j] = nullptr;
+				_squares[i][j] = other._squares[i][j]->clone();
 			}
 		}
 	}
 
-	// copy using copy c'tor that is in piece (pure)	
-	for (i = 0; i < this->SIZE; i++)
-	{
-		for (j = 0; j < this->SIZE; j++)
-		{
-			if (this->_squares[i][j])
-			{
-				this->_squares[i][j] = other._squares[i][j]->clone();
-			}
-		}
-	}
+	return *this;
 }
