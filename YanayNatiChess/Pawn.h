@@ -3,6 +3,11 @@
 
 class Pawn : public Piece
 {
+private:
+	// Moving diraction Constents
+	static constexpr int UP = 1;
+	static constexpr int DOWN = -1;
+
 public:
 	// c'tor
 	Pawn(Color color, PieceType type);

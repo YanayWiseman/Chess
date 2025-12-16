@@ -1,4 +1,6 @@
 #include "Pawn.h"
+#include "Move.h"
+#include "Board.h"
 
 /*
 	Constructor method to construct the Pawn object
@@ -22,5 +24,31 @@ Piece* Pawn::clone() const
 	return new Pawn(*this);
 }
 
-// just for testing (nati, edit this)
-bool Pawn::canMove(const Move& move, const Board& board) const { return true; }
+/*
+	This function handles the logic for the Pawns movement
+	input: Wanted move and current board
+	output: Is the move possible for a Pawn to proform
+*/
+bool Pawn::canMove(const Move& move, const Board& board) const 
+{ 
+	// Unpack wanted move
+	int startRow = move.getSrcRow();
+	int startCol = move.getSrcCol();
+	int endRow = move.getDstRow();
+	int endCol = move.getDstCol();
+
+	// Get the length in each diraction
+	int absRowDiff = abs(endRow - startRow);
+	int absColDiff = abs(endCol - startCol);
+
+	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
+
+	// Normal move conditions
+	bool correctColumn = (startCol == endCol);
+	bool correctRow = ((endRow - startRow) == moveDirection);
+	bool destinationEmpty = board.isEmpty(endRow, endCol);
+
+
+	bool forwardOne = correctColumn && correctRow && destinationEmpty;
+	return forwardOne;
+}
