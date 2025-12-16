@@ -1,6 +1,7 @@
 #include "Pawn.h"
 #include "Move.h"
 #include "Board.h"
+#include "MovementCheck.h"
 
 /*
 	Constructor method to construct the Pawn object
@@ -31,24 +32,43 @@ Piece* Pawn::clone() const
 */
 bool Pawn::canMove(const Move& move, const Board& board) const 
 { 
-	// Unpack wanted move
-	int startRow = move.getSrcRow();
-	int startCol = move.getSrcCol();
-	int endRow = move.getDstRow();
-	int endCol = move.getDstCol();
 
-	// Get the length in each diraction
-	int absRowDiff = abs(endRow - startRow);
-	int absColDiff = abs(endCol - startCol);
+	/*                         Prerequisites                         */
 
-	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
+	// Unpack wanted move											 
+	int startRow = move.getSrcRow();								 
+	int startCol = move.getSrcCol();							     
+	int endRow = move.getDstRow();									 
+	int endCol = move.getDstCol();									 						
+																	 
+	// Get the length in each diraction								 
+	int absRowDiff = abs(endRow - startRow);						 
+	int absColDiff = abs(endCol - startCol);						 
+																	 
+	int moveDirection = (this->_color == Color::White) ? UP : DOWN;	 
+																	 
+																	 
+	/*						 Normal move Logic						 */
 
 	// Normal move conditions
 	bool correctColumn = (startCol == endCol);
 	bool correctRow = ((endRow - startRow) == moveDirection);
 	bool destinationEmpty = board.isEmpty(endRow, endCol);
-
-
+	
 	bool forwardOne = correctColumn && correctRow && destinationEmpty;
-	return forwardOne;
+
+
+	/*						 Jump move Logic						 */
+	int getStartRank = (moveDirection > 0) ? WHITE_RANK : BLACK_RANK;
+
+	// Jump move conditions
+	bool jumpMove = ((endRow - startRow) == (JUMP_MOVE * moveDirection));
+	bool noObstacle = MovementCheck::isStraightPathClear(move, board) && destinationEmpty;
+	bool atStartRank = (getStartRank == startRow);
+	
+	bool forwardTwo = correctColumn && jumpMove && noObstacle && atStartRank;
+
+	bool checkPawnMove = (forwardOne || forwardTwo);
+	
+	return checkPawnMove;
 }
