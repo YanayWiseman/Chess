@@ -69,6 +69,50 @@ Piece* Board::createPieceFromChar(char ch) const
 }
 
 /*
+	This function prints the board
+	input: none
+	output: none
+*/
+void Board::printBoard() const
+{
+	for (int row = 0; row < 8; row++)
+	{
+		for (int col = 0; col < 8; col++)
+		{
+			const Piece* piece = _squares[row][col];
+
+			char outChar = HASHTAG;
+
+			if (piece)
+			{
+				switch (piece->getType())
+				{
+				case PieceType::TypeRook:   outChar = RookCh;   break;
+				case PieceType::TypeKnight: outChar = KnightCh; break;
+				case PieceType::TypeBishop: outChar = BishopCh; break;
+				case PieceType::TypeQueen:  outChar = QueenCh;  break;
+				case PieceType::TypeKing:   outChar = KingCh;   break;
+				case PieceType::TypePawn:   outChar = PawnCh;   break;
+				}
+
+				// Black pieces are uppercase
+				if (piece->getColor() == Color::Black)
+				{
+					outChar = toupper(outChar);
+				}
+			}
+
+			std::cout << outChar;
+
+			if (col < 7)
+				std::cout << ' ';
+		}
+
+		std::cout << std::endl;
+	}
+}
+
+/*
 	Destructor function to destruct the Board object by freeing all of his allocated memoty
 	input: no input values
 	output: no return values

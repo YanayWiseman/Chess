@@ -49,7 +49,7 @@ void Manager::manageGame()
 		char code = makeMove(move);
 		const char* myCode = crafter.createResponse(code);
 
-		cout << myCode << endl; //test line for the tester
+		this->_board.printBoard();
 
 		strcpy_s(msgToGraphics, KB, myCode); // msgToGraphics should contain the result of the operation
 		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics

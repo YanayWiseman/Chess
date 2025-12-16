@@ -33,6 +33,7 @@ private:
 
 	// methods
 	Piece* createPieceFromChar(char ch) const;
+	
 
 public:
 	//Methods (big 3)
@@ -51,4 +52,6 @@ public:
 	bool inBoard(int row, int col) const;
 	void movePiece(const Move& move);
 	bool isKingInCheck(Color curColor) const;
+
+	void printBoard() const;
 };
