@@ -107,7 +107,8 @@ bool MovementCheck::isDiagonalPathClear(const Move& move, const Board& board)
 */
 bool MovementCheck::causesCheck(const Move& move, const Board& board, Color kingColor) 
 {
-	Board tempBoard = board;
+	Board tempBoard;
+	tempBoard = board;
 	tempBoard.movePiece(move);
 
 	bool isCheck = tempBoard.isKingInCheck(kingColor);
