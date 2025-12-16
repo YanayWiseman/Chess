@@ -3,6 +3,8 @@
 
 class King : public Piece
 {
+private:
+	static constexpr int MAX_SQUARES = 1;
 public:
 	// c'tor
 	King(Color color, PieceType type);

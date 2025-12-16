@@ -1,4 +1,5 @@
 #include "King.h"
+#include "Move.h"
 
 /*
 	Constructor method to construct the King object
@@ -22,5 +23,24 @@ Piece* King::clone() const
 	return new King(*this);
 }
 
-// just for testing (nati, edit this)
-bool King::canMove(const Move& move, const Board& board) const { return true; }
+/*
+	This function handles the logic for the Kings movement
+	input: Wanted move and current board
+	output: Is the move possible for a King to proform
+*/
+bool King::canMove(const Move& move, const Board& board) const 
+{ 
+	// Unpack wanted move
+	int startRow = move.getSrcRow();
+	int startCol = move.getSrcCol();
+	int endRow = move.getDstRow();
+	int endCol = move.getDstCol();
+
+	// Get the length in each diraction
+	int absRowDiff = abs(endRow - startRow);
+	int absColDiff = abs(endCol - startCol);
+
+	// King can move only one square in any diraction
+	bool checkKingMove = (MAX_SQUARES >= absRowDiff ) && (MAX_SQUARES >= absColDiff);
+	return checkKingMove;
+}
