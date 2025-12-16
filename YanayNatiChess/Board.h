@@ -22,7 +22,7 @@ typedef enum PieceLetters
 	QueenCh = 'q',
 	KingCh = 'k',
 	PawnCh = 'p'
-};
+} PieceLetters;
 
 class Board 
 {
