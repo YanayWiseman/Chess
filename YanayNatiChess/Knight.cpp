@@ -1,6 +1,7 @@
 #include "Knight.h"
 #include "Move.h"
 #include "Board.h"
+#include <cmath>
 
 /*
 	Constructor method to construct the Knight object
@@ -24,5 +25,32 @@ Piece* Knight::clone() const
 	return new Knight(*this);
 }
 
-// just for testing (nati, edit this)
-bool Knight::canMove(const Move& move, const Board& board) const { return true; }
+
+/*
+	This function handles the logic for the Knights movement
+	input: Wanted move and current board
+	output: Is the move possible for a knight to proform
+*/
+bool Knight::canMove(const Move& move, const Board& board) const 
+{
+	// Unpack wanted move
+	int startRow = move.getSrcRow();
+	int startCol = move.getSrcCol();
+	int endRow = move.getDstRow();
+	int endCol = move.getDstCol();
+
+	// Get the length in each diraction
+	int absRowDiff = abs(endRow - startRow);
+	int absColDiff = abs(endCol - startCol);
+
+	// Check if a valid knight move occured (L Shaped Move)
+	bool checkRowLong = (KNIGHT_LONG == absRowDiff ) && (KNIGHT_SHORT == absColDiff);
+	bool checkColLong = (KNIGHT_LONG == absColDiff ) && (KNIGHT_SHORT == absRowDiff);
+
+	if (checkRowLong || checkColLong) 
+	{
+		return true;
+	}
+
+	return false; 
+}

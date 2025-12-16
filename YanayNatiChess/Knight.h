@@ -3,6 +3,9 @@
 
 class Knight : public Piece
 {
+private:
+	static constexpr int KNIGHT_LONG = 2;
+	static constexpr int KNIGHT_SHORT = 1;
 public:
 	// c'tor
 	Knight(Color color, PieceType type);
