@@ -9,7 +9,7 @@
 
 Move& ProtocolCrafter::parseMove(string moveStr)
 {
-	Move move(moveStr[0] - BACKTICK, moveStr[1] - ZERO_CHAR, moveStr[2] - BACKTICK, moveStr[3] - ZERO_CHAR);
+	Move move(moveStr[1] - ONE_CHAR, moveStr[0] - SMALL_A, moveStr[3] - ONE_CHAR , moveStr[2] - SMALL_A);
 
 	return move;
 }

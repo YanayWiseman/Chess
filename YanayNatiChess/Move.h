@@ -1,7 +1,7 @@
 #pragma once
 
-#define BACKTICK  '`'
-#define ZERO_CHAR '0'
+#define SMALL_A  'a'
+#define ONE_CHAR '1'
 
 /*
 	class that stores the move info

@@ -22,7 +22,7 @@ using std::string;
 
 typedef enum Codes
 {
-	legalMove,
+	legalMove = '0',
 	legalMoveCheck,    // move caused check on enemy
 	notValidSource,    // src pos isn't player's piece
 	notValidDest,      // dst pos is the piece of the same team as the sec
