@@ -7,11 +7,9 @@
 	output: the movement object with the given position
 */
 
-Move& ProtocolCrafter::parseMove(string moveStr)
+Move ProtocolCrafter::parseMove(string moveStr)
 {
-	Move move(moveStr[1] - ONE_CHAR, moveStr[0] - SMALL_A, moveStr[3] - ONE_CHAR , moveStr[2] - SMALL_A);
-
-	return move;
+	return Move(moveStr[1] - ONE_CHAR, moveStr[0] - SMALL_A, moveStr[3] - ONE_CHAR, moveStr[2] - SMALL_A);
 }
 
 /*

@@ -7,6 +7,6 @@ class ProtocolCrafter
 {
 public:
 	//methods
-	static Move& parseMove(string moveStr);
+	static Move parseMove(string moveStr);
 	static const char* createResponse(char code);
 };
