@@ -29,6 +29,9 @@ class Board
 private:
 	//fields
 	static constexpr int SIZE = 8;
+	static constexpr int WHITE_BACK_RANK = 7;
+	static constexpr int BLACK_BACK_RANK = 0;
+
 	Piece* _squares[SIZE][SIZE];
 
 	// methods

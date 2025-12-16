@@ -35,3 +35,4 @@ PieceType Piece::getType() const
 {
 	return this->_type;
 }
+

@@ -196,6 +196,22 @@ void Board::movePiece(const Move& move)
 	// put source piece in destination and clear it
 	this->_squares[dstRow][dstCol] = piece;
 	this->_squares[srcRow][srcCol] = nullptr;
+	
+
+	// Pawn promotion
+	if (piece->getType() == PieceType::TypePawn) 
+	{
+		Color color = piece->getColor();
+
+		if ((piece->getColor() == Color::White) && (move.getDstRow() == WHITE_BACK_RANK) ||
+			(piece->getColor() == Color::Black) && (move.getDstRow() == BLACK_BACK_RANK))
+		{
+			// promote to queen
+			delete piece;
+			_squares[dstRow][dstCol] = new Queen(color, PieceType::TypeQueen); 
+		}
+	}
+
 }
 
 /*
