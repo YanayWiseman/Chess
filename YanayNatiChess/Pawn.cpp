@@ -2,6 +2,7 @@
 #include "Move.h"
 #include "Board.h"
 #include "MovementCheck.h"
+#include <cmath>
 
 /*
 	Constructor method to construct the Pawn object
@@ -32,7 +33,6 @@ Piece* Pawn::clone() const
 */
 bool Pawn::canMove(const Move& move, const Board& board) const 
 { 
-
 	/*                         Prerequisites                         */
 
 	// Unpack wanted move											 
@@ -42,33 +42,57 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	int endCol = move.getDstCol();									 						
 																	 
 	// Get the length in each diraction								 
-	int absRowDiff = abs(endRow - startRow);						 
-	int absColDiff = abs(endCol - startCol);						 
+	int rowDiff = (endRow - startRow);						 
+	int colDiff = (endCol - startCol);						 
 																	 
 	int moveDirection = (this->_color == Color::White) ? UP : DOWN;	 
 																	 
-																	 
+	
+
+
 	/*						 Normal move Logic						 */
 
 	// Normal move conditions
 	bool correctColumn = (startCol == endCol);
-	bool correctRow = ((endRow - startRow) == moveDirection);
+	bool correctRow = (rowDiff == moveDirection);
 	bool destinationEmpty = board.isEmpty(endRow, endCol);
 	
 	bool forwardOne = correctColumn && correctRow && destinationEmpty;
 
 
+
+
 	/*						 Jump move Logic						 */
+
 	int getStartRank = (moveDirection > 0) ? WHITE_RANK : BLACK_RANK;
 
+
 	// Jump move conditions
-	bool jumpMove = ((endRow - startRow) == (JUMP_MOVE * moveDirection));
+	bool jumpMove = (rowDiff == (JUMP_MOVE * moveDirection));
 	bool noObstacle = MovementCheck::isStraightPathClear(move, board) && destinationEmpty;
 	bool atStartRank = (getStartRank == startRow);
 	
 	bool forwardTwo = correctColumn && jumpMove && noObstacle && atStartRank;
 
-	bool checkPawnMove = (forwardOne || forwardTwo);
-	
+
+
+
+	/*						 Capture Logic						     */
+	const Piece* dstPiece = board.getPiece(endRow, endCol);
+
+	bool onDiagonal = (abs(colDiff) == 1);
+	bool dstIsEnemy = dstPiece && (dstPiece->getColor() != _color);
+
+	bool captureDiagonal = onDiagonal && correctRow && dstIsEnemy;
+
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	/* Pawn can move only in one of the 3 following ways				   */
+	/* 1. One square forward										       */
+	/* 2. Two squares forward but only if still on starting rank	       */
+	/* 3. One square diagonally but only if there is an enemy piece there  */
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	bool checkPawnMove = (forwardOne || forwardTwo || captureDiagonal);
+
 	return checkPawnMove;
 }
