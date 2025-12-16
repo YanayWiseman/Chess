@@ -108,11 +108,7 @@ char Manager::validateMove(const Move& move)
 	}
 
 	// 4 - makes check for the current player
-	// simulate a movement
-	Board tempBoard = this->_board;
-	tempBoard.movePiece(move);
-
-	if (tempBoard.isKingInCheck(this->_turn))
+	if (MovementCheck::causesCheck(move, this->_board, this->_turn))
 	{
 		return selfCheck;
 	}
@@ -128,7 +124,7 @@ char Manager::validateMove(const Move& move)
 	}
 
 	// move put enemy in check (1)
-	if (tempBoard.isKingInCheck(enemy))
+	if (MovementCheck::causesCheck(move, this->_board, enemy))
 	{
 		return legalMoveCheck;
 	}
