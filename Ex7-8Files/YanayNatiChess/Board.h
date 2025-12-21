@@ -7,6 +7,7 @@
 #include "Pawn.h"
 #include "Piece.h"
 #include "Move.h"
+#include <cmath>
 
 class Piece;        
 class Move;

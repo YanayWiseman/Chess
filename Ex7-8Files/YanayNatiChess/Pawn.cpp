@@ -32,7 +32,7 @@ Piece* Pawn::clone() const
 	output: Is the move possible for a Pawn to proform
 */
 bool Pawn::canMove(const Move& move, const Board& board) const 
-{ 
+{
 	/*                         Prerequisites                         */
 
 	// Unpack wanted move											 

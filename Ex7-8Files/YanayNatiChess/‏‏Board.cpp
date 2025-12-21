@@ -233,15 +233,66 @@ void Board::movePiece(const Move& move)
 
 	Piece* piece = this->_squares[srcRow][srcCol];
 
+	// first, detect en passant
+	bool isEnPassant = false;
+	int enPassantCapturedRow = -1;
+	int enPassantCapturedCol = -1;
+
+	// handle en passant
+	if (piece && piece->getType() == PieceType::TypePawn)
+	{
+		int rowDifference = dstRow - srcRow;
+		int colDifference = dstCol - srcCol;
+
+		// diagonal move into empty square means possible en passant
+		if (std::abs(colDifference) == 1 && isEmpty(dstRow, dstCol))
+		{
+			// get the last move's fields
+			const Move* lastMove = getLastMove();
+
+			if (lastMove)
+			{
+				int lastMoveSrcRow = lastMove->getSrcRow();
+				int lastMoveDstRow = lastMove->getDstRow();
+				int lastMoveDstCol = lastMove->getDstCol();
+
+				const Piece* lastPiece = getPiece(lastMoveDstRow, lastMoveDstCol);
+
+				if (lastPiece && lastPiece->getType() == PieceType::TypePawn  // are pawns
+					&& lastPiece->getColor() != piece->getColor() // pawns are enemies
+					&& std::abs(lastMoveDstRow - lastMoveSrcRow) == 2  // pawn jumped two
+					&& lastMoveDstRow == srcRow  // correct row
+					&& lastMoveDstCol == dstCol)  // correct column
+				{
+					isEnPassant = true;
+					enPassantCapturedRow = lastMoveDstRow;
+					enPassantCapturedCol = lastMoveDstCol;
+				}
+			}
+		}
+	}
+
+	// second,  resolve en passant's capture
 	// delete it
-	delete this->_squares[dstRow][dstCol];
+	if (isEnPassant)
+	{
+		delete this->_squares[enPassantCapturedRow][enPassantCapturedCol];
+		this->_squares[enPassantCapturedRow][enPassantCapturedCol] = nullptr;
+
+	}
+	else
+	{
+		delete this->_squares[dstRow][dstCol];
+	}
+
+	// 3, move the piece
 
 	// put source piece in destination and clear it
 	this->_squares[dstRow][dstCol] = piece;
 	this->_squares[srcRow][srcCol] = nullptr;
 	
 
-	// Pawn promotion
+	//4,  Pawn promotion
 	if (piece->getType() == PieceType::TypePawn) 
 	{
 		Color color = piece->getColor();
@@ -254,7 +305,8 @@ void Board::movePiece(const Move& move)
 			_squares[dstRow][dstCol] = new Queen(color, PieceType::TypeQueen); 
 		}
 	}
-
+	// 5, update last move
+	setLastMove(move);
 }
 
 /*
