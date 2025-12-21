@@ -233,6 +233,11 @@ void Board::movePiece(const Move& move)
 
 	Piece* piece = this->_squares[srcRow][srcCol];
 
+	if (!piece)
+	{
+		return;
+	}
+
 	// first, detect en passant
 	bool isEnPassant = false;
 	int enPassantCapturedRow = -1;
@@ -290,7 +295,6 @@ void Board::movePiece(const Move& move)
 	// put source piece in destination and clear it
 	this->_squares[dstRow][dstCol] = piece;
 	this->_squares[srcRow][srcCol] = nullptr;
-	
 
 	//4,  Pawn promotion
 	if (piece->getType() == PieceType::TypePawn) 
@@ -306,7 +310,7 @@ void Board::movePiece(const Move& move)
 		}
 	}
 	// 5, update last move
-	setLastMove(move);
+	setLastMove(move); //MIGHT HAVE A PROBLEM WITH TEMP BOARD
 }
 
 /*

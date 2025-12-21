@@ -10,20 +10,20 @@ int main(void)
 	return 0;
 #endif
 
-    Manager manager;
-    ProtocolCrafter crafter;
+    //Manager manager;
+    //ProtocolCrafter crafter;
 
-    std::string msgFromInput;
+    //std::string msgFromInput;
 
-    while (std::getline(std::cin, msgFromInput) && !manager.hasWon())
-    {
-        Move move = crafter.parseMove(msgFromInput);
+    //while (std::getline(std::cin, msgFromInput) && !manager.hasWon())
+    //{
+    //    Move move = crafter.parseMove(msgFromInput);
 
-        char code = manager.makeMove(move); // '0'–'8' or other Codes enum chars
+    //    char code = manager.makeMove(move); // '0'–'8' or other Codes enum chars
 
-        std::cout << code << std::endl;
-        std::cout.flush();
-    }
+    //    std::cout << code << std::endl;
+    //    std::cout.flush();
+    //}
 
-    return 0;
+    //return 0;
 }

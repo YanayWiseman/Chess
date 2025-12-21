@@ -124,40 +124,35 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
 
 	// for en passant to happen the pawn must move diagonally forword into an empty square
-	bool dstIsEmpty = !board.isEmpty(dstRow, dstCol);
-	bool invalidEnPassant = dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1;
-	
-	if (dstIsEmpty || invalidEnPassant)
+	if ((dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1) 
+		|| (!board.isEmpty(dstRow, dstCol)))
 	{
 		return false;
 	}
 
 	// dismante the last move's fields
 	int lastMoveSrcRow = lastMove->getSrcRow();
-	int lastMoveSrcCol = lastMove->getSrcCol();
 	int lastMoveDstRow = lastMove->getDstRow();
 	int lastMoveDstCol = lastMove->getDstCol();
 
 	// get the destionamtion square of the last move
 	const Piece* lastPiece = board.getPiece(lastMoveDstRow, lastMoveDstCol);
+	
+	// must be enemy pawn
+	if (!lastPiece || lastPiece->getType() != PieceType::TypePawn || lastPiece->getColor() == this->_color)
+	{
+		return false;
+	}
 
-	bool isSquareValid = !lastPiece || lastPiece->getType() != PieceType::TypePawn;
-	// must be a two square Pawn jump
-	bool isTwoSquare = std::abs(lastMoveDstRow - lastMoveSrcRow) != JUMP_MOVE;
-
-	if (isTwoSquare || isSquareValid)
+	// last pawn must have jumped two squares
+	int lastDirection = (lastPiece->getColor() == Color::White) ? UP : DOWN;
+	if ((lastMoveDstRow - lastMoveSrcRow) != lastDirection * JUMP_MOVE)
 	{
 		return false;
 	}
 
 	// pawn must now be adjacent horizontally
 	if (lastMoveDstRow != srcRow || lastMoveDstCol != dstCol)
-	{
-		return false;
-	}
-
-	// enemy pawn
-	if (lastPiece->getColor() == this->_color)
 	{
 		return false;
 	}
