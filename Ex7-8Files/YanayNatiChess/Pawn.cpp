@@ -85,6 +85,8 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 
 	bool captureDiagonal = onDiagonal && correctRow && dstIsEnemy;
 
+	// check en passant
+	bool enPassant = isEnPassant(move, board);
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	/* Pawn can move only in one of the 3 following ways				   */
@@ -92,7 +94,74 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	/* 2. Two squares forward but only if still on starting rank	       */
 	/* 3. One square diagonally but only if there is an enemy piece there  */
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	bool checkPawnMove = (forwardOne || forwardTwo || captureDiagonal);
+	bool checkPawnMove = (forwardOne || forwardTwo || captureDiagonal || enPassant);
 
 	return checkPawnMove;
+}
+
+/*
+	function to check if current state of the board is en passant
+	input: the current move and the board (piece positions) (the move is the same as the move that canMove recieved)
+	output: boolean, true if en passant is occuring and false otherwise
+*/
+
+bool Pawn::isEnPassant(const Move& move, const Board& board) const
+{
+	const Move* lastMove = board.getLastMove();
+
+	// check if there was a last move (first move in the game edge case)
+	if (!lastMove)
+	{
+		return false;
+	}
+
+	// dismante the move's fields
+	int srcRow = move.getSrcRow();
+	int srcCol = move.getSrcCol();
+	int dstRow = move.getDstRow();
+	int dstCol = move.getDstCol();
+
+	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
+
+	// for en passant to happen the pawn must move diagonally forword into an empty square
+	bool dstIsEmpty = !board.isEmpty(dstRow, dstCol);
+	bool invalidEnPassant = dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1;
+	
+	if (dstIsEmpty || invalidEnPassant)
+	{
+		return false;
+	}
+
+	// dismante the last move's fields
+	int lastMoveSrcRow = lastMove->getSrcRow();
+	int lastMoveSrcCol = lastMove->getSrcCol();
+	int lastMoveDstRow = lastMove->getDstRow();
+	int lastMoveDstCol = lastMove->getDstCol();
+
+	// get the destionamtion square of the last move
+	const Piece* lastPiece = board.getPiece(lastMoveDstRow, lastMoveDstCol);
+
+	bool isSquareValid = !lastPiece || lastPiece->getType() != PieceType::TypePawn;
+	// must be a two square Pawn jump
+	bool isTwoSquare = std::abs(lastMoveDstRow - lastMoveSrcRow) != JUMP_MOVE;
+
+	if (isTwoSquare || isSquareValid)
+	{
+		return false;
+	}
+
+	// pawn must now be adjacent horizontally
+	if (lastMoveDstRow != srcRow || lastMoveDstCol != dstCol)
+	{
+		return false;
+	}
+
+	// enemy pawn
+	if (lastPiece->getColor() == this->_color)
+	{
+		return false;
+	}
+
+	// fits all of the en passant conditions!!!
+	return true;
 }

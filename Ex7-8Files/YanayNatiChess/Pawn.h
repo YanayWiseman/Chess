@@ -15,6 +15,9 @@ private:
 	static constexpr int WHITE_RANK = 1;
 	static constexpr int BLACK_RANK = 6;
 
+	// methods
+	bool isEnPassant(const Move& move, const Board& board) const;
+
 public:
 	// c'tor
 	Pawn(Color color, PieceType type);
