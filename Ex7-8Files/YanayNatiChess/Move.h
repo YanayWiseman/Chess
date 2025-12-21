@@ -17,6 +17,7 @@ private:
 
 public:
 	//c'tor & d'tor
+	Move();
 	Move(int srcRow, int srcCol, int dstRow, int dstCol);
 	~Move() = default;
 

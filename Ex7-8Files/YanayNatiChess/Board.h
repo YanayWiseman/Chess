@@ -34,6 +34,10 @@ private:
 
 	Piece* _squares[SIZE][SIZE];
 
+	// for en passant
+	bool _hasLastMove = false;
+	Move _lastMove;
+
 	// methods
 	Piece* createPieceFromChar(char ch) const;
 	
@@ -48,6 +52,10 @@ public:
 
 	// Getter
 	const Piece* getPiece(int row, int col) const;
+	const Move* getLastMove() const;
+
+	// setter
+	void setLastMove(const Move& move);
 
 	// Helpers
 	bool isEmpty(int row, int col) const;

@@ -1,6 +1,17 @@
 #include "Move.h"
 
 /*
+	Constructor for the Move object for when there are no values to assign
+	input: the source and destination positions
+	output: no return values
+*/
+
+Move::Move() : _srcRow(-1), _srcCol(-1), _dstRow(-1), _dstCol(-1)
+{
+
+}
+
+/*
 	Constructor for the Move object
 	input: the source and destination positions
 	output: no return values

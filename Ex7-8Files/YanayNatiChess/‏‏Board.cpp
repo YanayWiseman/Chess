@@ -76,11 +76,11 @@ Piece* Board::createPieceFromChar(char ch) const
 void Board::printBoard() const
 {
 	int row = 0, col = 0;
-	for (row = 0; row < 8; row++)
+	for (row = 0; row < SIZE; row++)
 	{
-		for (col = 0; col < 8; col++)
+		for (col = 0; col < SIZE; col++)
 		{
-			const Piece* piece = _squares[row][col];
+			const Piece* piece = this->_squares[row][col];
 
 			char outChar = HASHTAG;
 
@@ -88,12 +88,29 @@ void Board::printBoard() const
 			{
 				switch (piece->getType())
 				{
-				case PieceType::TypeRook:   outChar = RookCh;   break;
-				case PieceType::TypeKnight: outChar = KnightCh; break;
-				case PieceType::TypeBishop: outChar = BishopCh; break;
-				case PieceType::TypeQueen:  outChar = QueenCh;  break;
-				case PieceType::TypeKing:   outChar = KingCh;   break;
-				case PieceType::TypePawn:   outChar = PawnCh;   break;
+				case PieceType::TypeRook:   
+					outChar = RookCh;   
+					break;
+
+				case PieceType::TypeKnight: 
+					outChar = KnightCh; 
+					break;
+
+				case PieceType::TypeBishop: 
+					outChar = BishopCh; 
+					break;
+
+				case PieceType::TypeQueen:  
+					outChar = QueenCh;  
+					break;
+
+				case PieceType::TypeKing:   
+					outChar = KingCh;   
+					break;
+
+				case PieceType::TypePawn:   
+					outChar = PawnCh;   
+					break;
 				}
 
 				// Black pieces are uppercase
@@ -105,8 +122,10 @@ void Board::printBoard() const
 
 			std::cout << outChar;
 
-			if (col < 7)
+			if (col < (SIZE - 1))
+			{
 				std::cout << ' ';
+			}
 		}
 
 		std::cout << std::endl;
@@ -132,6 +151,30 @@ Board::~Board()
 			this->_squares[i][j] = nullptr;
 		}
 	}
+}
+
+/*
+	Getter method to get the last move performed in the chess game
+	input: no input values
+	output: the move made
+*/
+
+const Move* Board::getLastMove() const
+{
+	// if there was a last move return it and if not return nullptr
+	return this->_hasLastMove ? &(this->_lastMove) : nullptr;
+}
+
+/*
+	function to set the last move made in the chess game
+	input: the move made
+	output: no return values
+*/
+
+void Board::setLastMove(const Move& move)
+{
+	this->_lastMove = move;
+	this->_hasLastMove = true;
 }
 
 /*

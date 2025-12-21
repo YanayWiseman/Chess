@@ -2,11 +2,13 @@
 
 int main(void)
 {
-	//Manager manager;
+#ifdef _WIN32
+	Manager manager;
 
-	//manager.manageGame();
+	manager.manageGame();
 
-	//return 0;
+	return 0;
+#endif
 
     Manager manager;
     ProtocolCrafter crafter;
