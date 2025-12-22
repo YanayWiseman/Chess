@@ -31,23 +31,23 @@ Piece* Pawn::clone() const
 	input: Wanted move and current board
 	output: Is the move possible for a Pawn to proform
 */
-bool Pawn::canMove(const Move& move, const Board& board) const 
+bool Pawn::canMove(const Move& move, const Board& board) const
 {
 	/*                         Prerequisites                         */
 
 	// Unpack wanted move											 
-	int startRow = move.getSrcRow();								 
-	int startCol = move.getSrcCol();							     
-	int endRow = move.getDstRow();									 
-	int endCol = move.getDstCol();									 						
-																	 
+	int startRow = move.getSrcRow();
+	int startCol = move.getSrcCol();
+	int endRow = move.getDstRow();
+	int endCol = move.getDstCol();
+
 	// Get the length in each diraction								 
-	int rowDiff = (endRow - startRow);						 
-	int colDiff = (endCol - startCol);						 
-																	 
-	int moveDirection = (this->_color == Color::White) ? UP : DOWN;	 
-																	 
-	
+	int rowDiff = (endRow - startRow);
+	int colDiff = (endCol - startCol);
+
+	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
+
+
 
 
 	/*						 Normal move Logic						 */
@@ -56,7 +56,7 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	bool correctColumn = (startCol == endCol);
 	bool correctRow = (rowDiff == moveDirection);
 	bool destinationEmpty = board.isEmpty(endRow, endCol);
-	
+
 	bool forwardOne = correctColumn && correctRow && destinationEmpty;
 
 
@@ -71,7 +71,7 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	bool jumpMove = (rowDiff == (JUMP_MOVE * moveDirection));
 	bool noObstacle = MovementCheck::isStraightPathClear(move, board) && destinationEmpty;
 	bool atStartRank = (getStartRank == startRow);
-	
+
 	bool forwardTwo = correctColumn && jumpMove && noObstacle && atStartRank;
 
 
@@ -124,35 +124,40 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
 
 	// for en passant to happen the pawn must move diagonally forword into an empty square
-	if ((dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1) 
-		|| (!board.isEmpty(dstRow, dstCol)))
+	bool dstIsEmpty = !board.isEmpty(dstRow, dstCol);
+	bool invalidEnPassant = dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1;
+
+	if (dstIsEmpty || invalidEnPassant)
 	{
 		return false;
 	}
 
 	// dismante the last move's fields
 	int lastMoveSrcRow = lastMove->getSrcRow();
+	int lastMoveSrcCol = lastMove->getSrcCol();
 	int lastMoveDstRow = lastMove->getDstRow();
 	int lastMoveDstCol = lastMove->getDstCol();
 
 	// get the destionamtion square of the last move
 	const Piece* lastPiece = board.getPiece(lastMoveDstRow, lastMoveDstCol);
-	
-	// must be enemy pawn
-	if (!lastPiece || lastPiece->getType() != PieceType::TypePawn || lastPiece->getColor() == this->_color)
-	{
-		return false;
-	}
 
-	// last pawn must have jumped two squares
-	int lastDirection = (lastPiece->getColor() == Color::White) ? UP : DOWN;
-	if ((lastMoveDstRow - lastMoveSrcRow) != lastDirection * JUMP_MOVE)
+	bool isSquareValid = !lastPiece || lastPiece->getType() != PieceType::TypePawn;
+	// must be a two square Pawn jump
+	bool isTwoSquare = std::abs(lastMoveDstRow - lastMoveSrcRow) != JUMP_MOVE;
+
+	if (isTwoSquare || isSquareValid)
 	{
 		return false;
 	}
 
 	// pawn must now be adjacent horizontally
 	if (lastMoveDstRow != srcRow || lastMoveDstCol != dstCol)
+	{
+		return false;
+	}
+
+	// enemy pawn
+	if (lastPiece->getColor() == this->_color)
 	{
 		return false;
 	}
