@@ -476,3 +476,14 @@ Board& Board::operator=(const Board& other)
 
 	return *this;
 }
+
+/*
+	Getter method to get the board's size
+	input: no input values
+	output: the board's size
+*/
+
+int Board::getSize() const
+{
+	return this->SIZE;
+}

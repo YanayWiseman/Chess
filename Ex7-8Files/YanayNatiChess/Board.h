@@ -54,6 +54,7 @@ public:
 	// Getter
 	const Piece* getPiece(int row, int col) const;
 	const Move* getLastMove() const;
+	int getSize() const;
 
 	// setter
 	void setLastMove(const Move& move);

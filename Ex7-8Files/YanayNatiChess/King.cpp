@@ -62,6 +62,52 @@ bool King::canMove(const Move& move, const Board& board) const
 
 bool King::canCastle(const Move& move, const Board& board) const
 {
+	int srcRow = move.getSrcRow();
+	int srcCol = move.getSrcCol();
+	int dstRow = move.getDstRow();
+	int dstCol = move.getDstCol();
+
+	// to check if the king can castle, it must follow 3 important rules!
+	// I isolated all of the cases for easier reading and understanding
+	// Rule 1: king must not have moved
+	if (this->_hasMoved)
+	{
+		return false;
+	}
+
+	// Rule 2: king must not be in check currently
+	if (board.isKingInCheck(this->_color))
+	{
+		return false;
+	}
+	
+	// find which side: king side (right) or queen side (left)
+	bool kingSide = (dstCol > srcCol);  // right
+	int rookCol = kingSide ? (board.getSize() - 1) : 0;
+
+	// check if rook exists and hasn't moved
+	const Piece* rook = board.getPiece(srcRow, rookCol);
+
+	if (!rook || rook->getType() != PieceType::TypeRook || rook->hasMoved())
+	{
+		return false;
+	}
+
+	// make sure that the path is clear between king and rook
+	int direction = kingSide ? 1 : -1;
+	int checkCol = srcCol + direction;
+	int endCheckCol = rookCol;
+	
+	while (checkCol != endCheckCol)
+	{
+		if (!board.isEmpty(srcRow, checkCol))
+		{
+			return false;  // found piece inbetween
+		}
+		checkCol += direction;
+	}
+
+	// Rule 3: king cannot castle through check
 
 }
 
