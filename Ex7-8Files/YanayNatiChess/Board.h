@@ -9,7 +9,7 @@
 #include "Move.h"
 #include <cmath>
 
-class Piece;        
+class Piece;
 class Move;
 enum class Color;
 
@@ -25,7 +25,7 @@ typedef enum PieceLetters
 	PawnCh = 'p'
 } PieceLetters;
 
-class Board 
+class Board
 {
 private:
 	//fields
@@ -41,7 +41,7 @@ private:
 
 	// methods
 	Piece* createPieceFromChar(char ch) const;
-	
+
 
 public:
 	//Methods (big 3)

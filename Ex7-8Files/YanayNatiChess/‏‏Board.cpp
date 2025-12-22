@@ -88,28 +88,28 @@ void Board::printBoard() const
 			{
 				switch (piece->getType())
 				{
-				case PieceType::TypeRook:   
-					outChar = RookCh;   
+				case PieceType::TypeRook:
+					outChar = RookCh;
 					break;
 
-				case PieceType::TypeKnight: 
-					outChar = KnightCh; 
+				case PieceType::TypeKnight:
+					outChar = KnightCh;
 					break;
 
-				case PieceType::TypeBishop: 
-					outChar = BishopCh; 
+				case PieceType::TypeBishop:
+					outChar = BishopCh;
 					break;
 
-				case PieceType::TypeQueen:  
-					outChar = QueenCh;  
+				case PieceType::TypeQueen:
+					outChar = QueenCh;
 					break;
 
-				case PieceType::TypeKing:   
-					outChar = KingCh;   
+				case PieceType::TypeKing:
+					outChar = KingCh;
 					break;
 
-				case PieceType::TypePawn:   
-					outChar = PawnCh;   
+				case PieceType::TypePawn:
+					outChar = PawnCh;
 					break;
 				}
 
@@ -306,7 +306,7 @@ void Board::movePiece(const Move& move)
 		}
 	}
 	// 5, update last move
-	setLastMove(move);  //MIGHT HAVE A PROBLEM WITH TEMP BOARD
+	setLastMove(move);
 }
 
 /*
@@ -326,7 +326,7 @@ bool Board::isDestValid(const Move& move) const
 	{
 		return true;
 	}
-	
+
 	// get pieces at src and dst positions
 	const Piece* srcPiece = getPiece(srcRow, srcCol);
 	const Piece* dstPiece = getPiece(dstRow, dstCol);
@@ -343,7 +343,7 @@ bool Board::isDestValid(const Move& move) const
 }
 
 /*
-	Method to check if the current king is in check position by 
+	Method to check if the current king is in check position by
 	iterating over all of the pieces and checking if the can harm the king
 	input: the current color playing
 	output: boolean, true if king is in check and false otherwise
