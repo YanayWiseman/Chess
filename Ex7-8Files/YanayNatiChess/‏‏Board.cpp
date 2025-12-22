@@ -296,6 +296,7 @@ void Board::movePiece(const Move& move)
 	this->_squares[dstRow][dstCol] = piece;
 	this->_squares[srcRow][srcCol] = nullptr;
 
+	piece->setHasMoved(true);  // make sure that the piece is set as moved
 
 	//4,  Pawn promotion
 	if (piece->getType() == PieceType::TypePawn)
