@@ -108,6 +108,20 @@ bool King::canCastle(const Move& move, const Board& board) const
 	}
 
 	// Rule 3: king cannot castle through check
+	// check the squares the king passes through (including destination)
+	int col = 0;
+	for (col = srcCol + direction; col != dstCol + direction; col += direction)
+	{
+		// simulate king moving to this position
+		Move testMove(srcRow, srcCol, srcRow, col);
 
+		if (MovementCheck::causesCheck(testMove, board, this->_color))
+		{
+			return false;  // king would be in check at this square
+		}
+	}
+	
+	// met all castling conditions and is allowed to castle
+	return true;
 }
 
