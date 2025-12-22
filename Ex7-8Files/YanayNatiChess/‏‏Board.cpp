@@ -298,7 +298,25 @@ void Board::movePiece(const Move& move)
 
 	piece->setHasMoved(true);  // make sure that the piece is set as moved
 
-	//4,  Pawn promotion
+	//4, handle castling rook movement
+	if (piece->getType() == PieceType::TypeKing && std::abs(dstCol - srcCol) == 2)
+	{
+		// if got here, this is a castling move
+		bool kingSide = (dstCol > srcCol);
+		int rookSrcCol = kingSide ? (this->SIZE - 1) : 0;
+		int rookDstCol = kingSide ? (dstCol - 1) : (dstCol + 1);
+
+		Piece* rook = this->_squares[srcRow][rookSrcCol];
+		if (rook)
+		{
+			// move the rook
+			this->_squares[srcRow][rookSrcCol] = rook;
+			this->_squares[srcRow][rookSrcCol] = nullptr;
+			rook->setHasMoved(true);
+		}
+	}
+
+	//5,  Pawn promotion
 	if (piece->getType() == PieceType::TypePawn)
 	{
 		Color color = piece->getColor();
@@ -311,7 +329,7 @@ void Board::movePiece(const Move& move)
 			_squares[dstRow][dstCol] = new Queen(color, PieceType::TypeQueen);
 		}
 	}
-	// 5, update last move
+	// 6, update last move
 	setLastMove(move);
 }
 
