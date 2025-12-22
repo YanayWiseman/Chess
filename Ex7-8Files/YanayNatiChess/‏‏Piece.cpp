@@ -9,7 +9,7 @@
 	output no return values
 */
 
-Piece::Piece(Color color, PieceType type) : _color(color), _type(type)
+Piece::Piece(Color color, PieceType type) : _color(color), _type(type), _hasMoved(false)
 {
 
 }
@@ -36,3 +36,24 @@ PieceType Piece::getType() const
 	return this->_type;
 }
 
+/*
+	Getter mehtod to get the boolean value representing whether the piece has moved yet or not
+	input: no input values
+	output: whether the piece has moved yet or not
+*/
+
+bool Piece::hasMoved() const
+{
+	return this->_hasMoved;
+}
+
+/*
+	Setter mehtod to set the boolean value representing whether the piece has moved yet or not
+	input: whether the piece has moved yet or not
+	output: no return values
+*/
+
+void Piece::setHasMoved(bool moved)
+{
+	this->_hasMoved = moved;
+}

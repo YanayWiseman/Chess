@@ -104,7 +104,6 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	input: the current move and the board (piece positions) (the move is the same as the move that canMove recieved)
 	output: boolean, true if en passant is occuring and false otherwise
 */
-
 bool Pawn::isEnPassant(const Move& move, const Board& board) const
 {
 	const Move* lastMove = board.getLastMove();
@@ -115,7 +114,7 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 		return false;
 	}
 
-	// dismante the move's fields
+	// dismantle the move's fields
 	int srcRow = move.getSrcRow();
 	int srcCol = move.getSrcCol();
 	int dstRow = move.getDstRow();
@@ -123,29 +122,31 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 
 	int moveDirection = (this->_color == Color::White) ? UP : DOWN;
 
-	// for en passant to happen the pawn must move diagonally forword into an empty square
-	bool dstIsEmpty = !board.isEmpty(dstRow, dstCol);
-	bool invalidEnPassant = dstRow - srcRow != moveDirection || std::abs(dstCol - srcCol) != 1;
+	// for en passant to happen the pawn must move diagonally forward into an empty square
+	bool dstIsEmpty = board.isEmpty(dstRow, dstCol);
+	bool validDiagonalMove = (dstRow - srcRow == moveDirection) && (std::abs(dstCol - srcCol) == 1);
 
-	if (dstIsEmpty || invalidEnPassant)
+	if (!dstIsEmpty || !validDiagonalMove)
 	{
 		return false;
 	}
 
-	// dismante the last move's fields
+	// dismantle the last move's fields
 	int lastMoveSrcRow = lastMove->getSrcRow();
-	int lastMoveSrcCol = lastMove->getSrcCol();
 	int lastMoveDstRow = lastMove->getDstRow();
 	int lastMoveDstCol = lastMove->getDstCol();
 
-	// get the destionamtion square of the last move
+	// get the destination square of the last move
 	const Piece* lastPiece = board.getPiece(lastMoveDstRow, lastMoveDstCol);
+	// i have isolated every return false case so it is easier to understand for the reader
+	// must be a pawn
+	if (!lastPiece || lastPiece->getType() != PieceType::TypePawn)
+	{
+		return false;
+	}
 
-	bool isSquareValid = !lastPiece || lastPiece->getType() != PieceType::TypePawn;
-	// must be a two square Pawn jump
-	bool isTwoSquare = std::abs(lastMoveDstRow - lastMoveSrcRow) != JUMP_MOVE;
-
-	if (isTwoSquare || isSquareValid)
+	// must be a two square pawn jump
+	if (std::abs(lastMoveDstRow - lastMoveSrcRow) != JUMP_MOVE)
 	{
 		return false;
 	}
@@ -156,7 +157,7 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 		return false;
 	}
 
-	// enemy pawn
+	// must be enemy pawn
 	if (lastPiece->getColor() == this->_color)
 	{
 		return false;

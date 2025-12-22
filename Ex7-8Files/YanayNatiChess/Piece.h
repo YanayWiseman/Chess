@@ -32,6 +32,7 @@ protected:
 	//fields
 	Color _color;
 	PieceType _type;
+	bool _hasMoved;  // for castling
 
 public:
 	// Ctor & Dtor
@@ -39,10 +40,14 @@ public:
 	virtual ~Piece() = default;
 	// copy c'tor
 	virtual Piece* clone() const = 0;
-	
+	bool hasMoved() const;
+
 	// Getters
 	Color getColor() const;
 	PieceType getType() const;
+
+	// Setters
+	void setHasMoved(bool moved);
 
 	// Helpers
 	virtual bool canMove(const Move& move, const Board& board) const = 0;

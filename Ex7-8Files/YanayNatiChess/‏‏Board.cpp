@@ -233,6 +233,11 @@ void Board::movePiece(const Move& move)
 
 	Piece* piece = this->_squares[srcRow][srcCol];
 
+	if (!piece)
+	{
+		return;
+	}
+
 	// first, detect en passant
 	bool isEnPassant = false;
 	int enPassantCapturedRow = -1;
