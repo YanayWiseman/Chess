@@ -124,4 +124,3 @@ bool King::canCastle(const Move& move, const Board& board) const
 	// met all castling conditions and is allowed to castle
 	return true;
 }
-
