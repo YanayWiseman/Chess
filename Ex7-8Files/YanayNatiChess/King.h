@@ -4,7 +4,12 @@
 class King : public Piece
 {
 private:
+	// fields
 	static constexpr int MAX_SQUARES = 1;
+	static constexpr int CASTLING_DISTANCE = 2;
+
+	// methods
+	bool canCastle(const Move& move, const Board& board) const;
 public:
 	// c'tor
 	King(Color color, PieceType type);

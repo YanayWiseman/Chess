@@ -42,5 +42,26 @@ bool King::canMove(const Move& move, const Board& board) const
 
 	// King can move only one square in any diraction
 	bool checkKingMove = (MAX_SQUARES >= absRowDiff ) && (MAX_SQUARES >= absColDiff);
+
+	// check for castling attempt (king moves 2 squares horizontally)
+	bool castlingAttempt = (absRowDiff == 0) && (absColDiff == CASTLING_DISTANCE);
+
+	if (castlingAttempt)
+	{
+		return canCastle(move, board);
+	}
+
 	return checkKingMove;
 }
+
+/*
+	function to check if the king can castle or not
+	input: the move made by the king and the board
+	output: boolean, true if king can castle and false otherwise
+*/
+
+bool King::canCastle(const Move& move, const Board& board) const
+{
+
+}
+
