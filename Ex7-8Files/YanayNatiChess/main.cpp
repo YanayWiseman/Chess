@@ -2,28 +2,31 @@
 
 int main(void)
 {
-//#ifdef _WIN32
-//	Manager manager;
-//
-//	manager.manageGame();
-//
-//	return 0;
-//#endif
+    // if running locally, uncomment this and comment the rest
+#ifdef _WIN32
+	Manager manager;
 
-    Manager manager;
-    ProtocolCrafter crafter;
+	manager.manageGame();
 
-    std::string msgFromInput;
+	return 0;
+#endif
 
-    while (std::getline(std::cin, msgFromInput) && !manager.hasWon())
-    {
-        Move move = crafter.parseMove(msgFromInput);
+    // if running on github, uncomment this and comment the section above
+    
+    //Manager manager;
+    //ProtocolCrafter crafter;
 
-        char code = manager.makeMove(move); // '0'–'8' or other Codes enum chars
+    //std::string msgFromInput;
 
-        std::cout << code << std::endl;
-        std::cout.flush();
-    }
+    //while (std::getline(std::cin, msgFromInput) && !manager.hasWon())
+    //{
+    //    Move move = crafter.parseMove(msgFromInput);
 
-    return 0;
+    //    char code = manager.makeMove(move); // '0'–'8' or other Codes enum chars
+
+    //    std::cout << code << std::endl;
+    //    std::cout.flush();
+    //}
+
+    //return 0;
 }

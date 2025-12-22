@@ -310,7 +310,7 @@ void Board::movePiece(const Move& move)
 		if (rook)
 		{
 			// move the rook
-			this->_squares[srcRow][rookSrcCol] = rook;
+			this->_squares[srcRow][rookDstCol] = rook;
 			this->_squares[srcRow][rookSrcCol] = nullptr;
 			rook->setHasMoved(true);
 		}
