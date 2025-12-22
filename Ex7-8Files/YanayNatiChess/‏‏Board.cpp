@@ -310,9 +310,14 @@ void Board::movePiece(const Move& move)
 		if (rook)
 		{
 			// move the rook
+			std::cout << "DEBUG: castling - moving rook from (" << srcRow << "," << rookSrcCol << ") to (" << srcRow << "," << rookDstCol << ")\n";
 			this->_squares[srcRow][rookDstCol] = rook;
 			this->_squares[srcRow][rookSrcCol] = nullptr;
 			rook->setHasMoved(true);
+		}
+		else
+		{
+			std::cout << "DEBUG: castling - expected rook at (" << srcRow << "," << rookSrcCol << ") but found none.\n";
 		}
 	}
 
@@ -331,6 +336,25 @@ void Board::movePiece(const Move& move)
 	}
 	// 6, update last move
 	setLastMove(move);
+	////////////////////
+	// DEBUG: print simple board and show king/rook squares after every move
+	std::cout << "DEBUG: after move " << srcRow << "," << srcCol << " -> " << dstRow << "," << dstCol << std::endl;
+	printBoard();
+	const Piece* p_a1 = getPiece(srcRow, 0); // rook original col 0 (a-file)
+	const Piece* p_d1 = getPiece(srcRow, 3); // expected dst for queenside rook
+	const Piece* p_f1 = getPiece(srcRow, 5); // expected dst for kingside rook
+	auto name = [](const Piece* p)->std::string {
+		if (!p) return "empty";
+		char t;
+		switch (p->getType()) {
+		case PieceType::TypeRook: t = 'R'; break;
+		case PieceType::TypeKing: t = 'K'; break;
+		default: t = '?';
+		}
+		return std::string(1, t) + (p->hasMoved() ? "(moved)" : "(fresh)");
+		};
+	std::cout << "DEBUG squares: a-file: " << name(p_a1) << "  d-file: " << name(p_d1) << "  f-file: " << name(p_f1) << std::endl;
+
 }
 
 /*

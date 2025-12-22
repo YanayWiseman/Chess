@@ -12,7 +12,6 @@ int main(void)
 //#endif
 
     // if running on github, uncomment this and comment the section above
-    
     Manager manager;
     ProtocolCrafter crafter;
 
