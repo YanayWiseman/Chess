@@ -243,5 +243,63 @@ bool Manager::hasWon() const
 
 string Manager::getBoardString() const
 {
-	
+	string boardStr = "";
+
+	int i = 0, j = 0;
+	const int SIZE = 8;  // init in board so just use it here too
+
+	for (i = 0; i < SIZE; i++)
+	{
+		for (j = 0; j < SIZE; j++)
+		{
+			const Piece* curPiece = this->_board.getPiece(i, j);
+
+			//empty square
+			if (!curPiece)
+			{
+				boardStr += '#';
+			}
+			else  // white piece
+			{
+				char ch = 0;
+
+				switch (curPiece->getType())
+				{
+				case PieceType::TypeRook:
+					ch = 'r';
+					break;
+				case PieceType::TypeKnight:
+					ch = 'n';
+					break;
+				case PieceType::TypeBishop:
+					ch = 'b';
+					break;
+				case PieceType::TypeQueen:
+					ch = 'q';
+					break;
+				case PieceType::TypeKing:
+					ch = 'k';
+					break;
+				case PieceType::TypePawn: 
+					ch = 'p';
+					break;
+				default: 
+					ch = '#';
+					break;
+				}
+
+				// black is uppercase
+				if (curPiece->getColor() == Color::Black)
+				{
+					ch = toupper(ch);
+				}
+
+				boardStr += ch;
+			}
+		}
+	}
+	// add current player
+	boardStr += (this->_turn == Color::White) ? '0' : '1';
+
+	return boardStr;
 }
