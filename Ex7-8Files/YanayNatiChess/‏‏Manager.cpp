@@ -52,6 +52,15 @@ void Manager::manageGame()
 		strcpy_s(msgToGraphics, KB, myCode); // msgToGraphics should contain the result of the operation
 		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics
 
+		// after a valid move, send updated board state (BONUS)
+		if (code == legalMove || code == legalMoveCheck || code == legalMoveCheckMate)
+		{
+			string boardState = getBoardString();
+			strcpy_s(msgToGraphics, KB, boardState.c_str());
+			pipe.sendMessageToGraphics(msgToGraphics);
+		}
+
+
 		msgFromGraphics = pipe.getMessageFromGraphics();  // get message from graphics
 	}
 
@@ -224,4 +233,15 @@ bool Manager::isKingAlive(Color kingColor) const
 bool Manager::hasWon() const
 {
 	return this->_won;
+}
+
+/*
+	method to get the current state of the board as a string
+	input: no input values
+	output: 65 character string representing the board and current player
+*/
+
+string Manager::getBoardString() const
+{
+	
 }

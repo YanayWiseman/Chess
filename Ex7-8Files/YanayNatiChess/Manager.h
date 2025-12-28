@@ -46,6 +46,7 @@ private:
 	void updateTurn();
 	void CheckGameState();
 	bool isKingAlive(Color kingColor) const;
+	string getBoardString() const;
 
 public:
 	// methods
