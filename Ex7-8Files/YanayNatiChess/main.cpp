@@ -11,7 +11,7 @@ int main(void)
 //	return 0;
 //#endif
 
-     if running on github, uncomment this and comment the section above
+    //if running on github, uncomment this and comment the section above
     Manager manager;
     ProtocolCrafter crafter;
 
