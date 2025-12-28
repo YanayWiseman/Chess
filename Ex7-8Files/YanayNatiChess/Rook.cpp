@@ -20,7 +20,9 @@ Rook::Rook(Color color, PieceType type) : Piece(color, type)
 
 Piece* Rook::clone() const
 {
-	return new Rook(*this);
+	Rook* newRook = new Rook(*this);
+	newRook->_hasMoved = this->_hasMoved;
+	return newRook;
 }
 
 /*
@@ -28,6 +30,7 @@ Piece* Rook::clone() const
 	input: Wanted move and current board
 	output: Is the move possible for a Rooks to proform
 */
+
 bool Rook::canMove(const Move& move, const Board& board) const 
 {
 	// Rook can only move in a straight line

@@ -22,7 +22,9 @@ Knight::Knight(Color color, PieceType type) : Piece(color, type)
 
 Piece* Knight::clone() const
 {
-	return new Knight(*this);
+	Knight* newKnight = new Knight(*this);
+	newKnight->_hasMoved = this->_hasMoved;
+	return newKnight;
 }
 
 

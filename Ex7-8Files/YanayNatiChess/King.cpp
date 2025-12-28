@@ -20,7 +20,9 @@ King::King(Color color, PieceType type) : Piece(color, type)
 
 Piece* King::clone() const
 {
-	return new King(*this);
+	King* newKing = new King(*this);
+	newKing->_hasMoved = this->_hasMoved;
+	return newKing;
 }
 
 /*

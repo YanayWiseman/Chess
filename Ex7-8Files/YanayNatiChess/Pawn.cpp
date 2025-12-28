@@ -23,7 +23,9 @@ Pawn::Pawn(Color color, PieceType type) : Piece(color, type)
 
 Piece* Pawn::clone() const
 {
-	return new Pawn(*this);
+	Pawn* newPawn = new Pawn(*this);
+	newPawn->_hasMoved = this->_hasMoved;
+	return newPawn;
 }
 
 /*

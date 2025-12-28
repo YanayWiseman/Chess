@@ -19,7 +19,9 @@ Bishop::Bishop(Color color, PieceType type) : Piece(color, type)
 
 Piece* Bishop::clone() const
 {
-	return new Bishop(*this);
+	Bishop* newBishop = new Bishop(*this);
+	newBishop->_hasMoved = this->_hasMoved;
+	return newBishop;
 }
 
 /*

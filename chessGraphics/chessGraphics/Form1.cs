@@ -272,13 +272,26 @@ namespace chessGraphics
 
                     string res = convertEngineToText(m);
 
-                    if (res.ToLower().StartsWith("game over"))
-                    {
-                        isGameOver = true;
-                    }
+                     // their version
+                     if (res.ToLower().StartsWith("game over"))
+                     {
+                         isGameOver = true;
+                     }
+                     else if (res.ToLower().StartsWith("valid"))
+                     {
+                         isCurPlWhite = !isCurPlWhite;
+                         lblCurrentPlayer.Text = isCurPlWhite ? "White" : "Black";
 
-                    // added this
-                    else if (res.ToLower().StartsWith("valid"))
+                         matBoard[dstSquare.Row, dstSquare.Col].BackgroundImage = matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage;
+                         matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage = null;
+
+                         matBoard[srcSquare.Row, srcSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+                         matBoard[dstSquare.Row, dstSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+
+                     }
+                     // my version (swap the else if before this one with this:
+                     // added this
+                     /*else if (res.ToLower().StartsWith("valid"))
                      {
                          // get the updated board state
                          string boardState = enginePipe.getEngineMessage();
@@ -289,14 +302,14 @@ namespace chessGraphics
                              // update the entire board
                              updateBoardDisplay(boardState);
 
-                             isCurPlWhite = !isCurPlWhite;  // swap the player
+                             isCurPlWhite = (boardState[boardState.Length - 1] == '0');// swap the player
                              lblCurrentPlayer.Text = isCurPlWhite ? "White" : "Black";
                          }
 
                          matBoard[srcSquare.Row, srcSquare.Col].FlatAppearance.BorderColor = Color.Blue;
                          matBoard[dstSquare.Row, dstSquare.Col].FlatAppearance.BorderColor = Color.Blue;
 
-                     }
+                     }*/
 
                     lblEngineCalc.Visible = false;
                     lblResult.Text = string.Format("{0}", res);
@@ -336,7 +349,7 @@ namespace chessGraphics
             output: no reutrn values
         */
 
-        private void updateBoardDisplay(string boardStr)
+/*        private void updateBoardDisplay(string boardStr)
         {
             int counter = 0;
             int i = 0, j = 0;
@@ -350,7 +363,7 @@ namespace chessGraphics
                     counter++;
                 }
             }
-        }
+        }*/
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {

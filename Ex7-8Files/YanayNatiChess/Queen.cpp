@@ -20,7 +20,9 @@ Queen::Queen(Color color, PieceType type) : Piece(color, type)
 
 Piece* Queen::clone() const
 {
-	return new Queen(*this);
+	Queen* newQueen = new Queen(*this);
+	newQueen->_hasMoved = this->_hasMoved;
+	return newQueen;
 }
 
 /*

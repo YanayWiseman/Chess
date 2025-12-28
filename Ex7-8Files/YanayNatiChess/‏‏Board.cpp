@@ -493,6 +493,10 @@ Board& Board::operator=(const Board& other)
 		}
 	}
 
+	// copy last move's data
+	this->_hasLastMove = other._hasLastMove;
+	this->_lastMove = other._lastMove;
+
 	return *this;
 }
 
