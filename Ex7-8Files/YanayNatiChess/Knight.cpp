@@ -52,3 +52,31 @@ bool Knight::canMove(const Move& move, const Board& board) const
 	bool checkKnightMove = (checkRowLong || checkColLong);
 	return checkKnightMove;
 }
+
+/*
+	This function generates all pseudo legel moves for the knight
+	input: current board current place(row, col)
+	output: vector of the moves
+*/
+std::vector<Move> Knight::getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const
+{
+	int i = 0;
+	std::vector<Move> moves;
+
+	for (int i = 0; i < MOVE_COUNT; i++)
+	{
+		int r = srcRow + MOVES[i][0];
+		int c = srcCol + MOVES[i][1];
+
+		if (board.inBoard(r, c))
+		{
+			const Piece* target = board.getPiece(r, c);
+
+			if (!target || target->getColor() != getColor())
+			{
+				moves.emplace_back(srcRow, srcCol, r, c);
+			}
+		}
+	}
+	return moves;
+}
