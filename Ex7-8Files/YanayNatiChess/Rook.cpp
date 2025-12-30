@@ -37,3 +37,52 @@ bool Rook::canMove(const Move& move, const Board& board) const
 	bool checkRookMove = MovementCheck::isStraightPathClear(move, board);
 	return checkRookMove;
 }
+
+
+/*
+	This function generates all pseudo legel moves for the rook
+	input: current board current place(row, col) and vector to add the moves too
+	output: none
+*/
+std::vector<Move> Rook::getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const
+{
+	int dir = 0;
+	std::vector<Move> moves;
+
+	for (dir = 0; dir < DIR_COUNT; dir++) 
+	{
+		bool blocked = false;
+		int step = 1;
+
+		while(!blocked) 
+		{
+			int r = srcRow + DIRS[dir][0] * step;
+			int c = srcCol + DIRS[dir][1] * step;
+
+			if (!board.inBoard(r, c))
+			{
+				blocked = true;
+			}
+			else
+			{
+				const Piece* target = board.getPiece(r, c);
+
+				if (!target)
+				{
+					moves.emplace_back(srcRow, srcCol, r, c);
+				}
+				else
+				{
+					if (target->getColor() != this->getColor())
+					{
+						moves.emplace_back(srcRow, srcCol, r, c);
+					}
+					blocked = true;
+				}
+			}
+
+			step++;
+		}
+	}
+	return moves;
+}

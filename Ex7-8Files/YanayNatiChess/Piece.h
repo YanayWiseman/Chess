@@ -52,5 +52,5 @@ public:
 
 	// Helpers
 	virtual bool canMove(const Move& move, const Board& board) const = 0;
-	virtual void getPseudoLegalMoves(const Board& board, int srcRow, int srcCol, std::vector<Move>& outMoves) const = 0;
+	virtual std::vector<Move> getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const = 0;
 };
