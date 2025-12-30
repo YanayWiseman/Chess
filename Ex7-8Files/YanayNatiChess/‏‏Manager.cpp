@@ -9,7 +9,7 @@ const int BOARD_SIZE = 8;
 	input: no input values
 	output: no return values
 */
-Manager::Manager() : _board(), _turn(Color::White), _won(false), _inCheck(false)
+Manager::Manager() : _board(), _turn(Color::White), _won(false), _inCheck(false), _movesCounter(0)
 {
 }
 

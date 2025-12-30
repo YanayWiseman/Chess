@@ -41,7 +41,10 @@ typedef enum Codes
 class Manager
 {
 private:
+	static constexpr int FIFTY_MOVE_RULE = 100; // 50 * 2 as each players turn is a half move
+
 	// Fields
+	int _halfmovesCounter;
 	Board _board;
 	Color _turn;
 	bool _won;
