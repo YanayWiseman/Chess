@@ -156,21 +156,15 @@ char Manager::makeMove(const Move& move)
 	// apply the movement
 	this->_board.movePiece(move);
 
-	Color enemy = (_turn == Color::White) ? Color::Black : Color::White;
+	updateTurn();
 
-	if (result == legalMoveCheck && isKingInMate(enemy))
+	if (result == legalMoveCheck && isKingInMate(_turn))
 	{
 		result = legalMoveCheckMate;
 	}
 
 	// update the game state flags
 	CheckGameState();
-
-	// if game is not over, swap the player
-	if (!this->_won)
-	{
-		updateTurn();
-	}
 
 	return result;
 }
@@ -316,34 +310,47 @@ string Manager::getBoardString() const
 */
 bool Manager::isKingInMate(Color color) 
 {
-	// natis lazy bonus and as nati im aware that this is garbage in terms of run time
-	bool hasValidMove = false;
-	int sRow = 0;
-	int sCol = 0;
-	int dRow = 0;
-	int dCol = 0;
+	int i = 0;
+	int row = 0;
+	int col = 0;
 	int counter = 0;
-
 	std::vector<const Piece*> colorPieces;
-	const Piece* piece = nullptr;
+	std::vector<std::pair<int, int>> positions;
 
-	for (sRow = 0; sRow < BOARD_SIZE; sRow++)
+
+	// Step 1: collect all pieces of the given color
+	for (row = 0; row < BOARD_SIZE; row++)
 	{
-		for (sCol = 0; sCol < BOARD_SIZE; sCol++)
+		for (col = 0; col < BOARD_SIZE; col++)
 		{
-			piece = this->_board.getPiece(sRow, sCol);
+			const Piece* piece = this->_board.getPiece(row, col);
 			if (piece && piece->getColor() == color)
 			{
 				colorPieces.push_back(piece);
+				positions.emplace_back(row, col);
+				counter++;
 			}
 		}
 	}
-	
+
+	// Step 2: iterate over pieces and their pseudo-legal moves
+	auto posIt = positions.begin();
+	for (const Piece* p : colorPieces)
 	{
-		for (const Piece* p : colorPieces)
+		int row = posIt->first;
+		int col = posIt->second;
+		posIt++;
+
+		for (const Move& move : p->getPseudoLegalMoves(this->_board, row, col))
 		{
-			
+			char code = validateMove(move);
+			if (code == legalMove || code == legalMoveCheck)
+			{
+				return false; // found a valid move, king is not in mate
+			}
 		}
 	}
-	return !hasValidMove;
+
+	// No valid moves found
+	return true; // king is in mate
 }
