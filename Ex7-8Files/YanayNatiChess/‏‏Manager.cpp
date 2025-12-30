@@ -156,22 +156,26 @@ char Manager::makeMove(const Move& move)
 
 	// apply the movement
 	this->_board.movePiece(move);
+	updateTurn();
 
-	if (insufficientMaterial()) 
+	// check for insufficient material draw
+	if (insufficientMaterial())
 	{
 		result = drawInsufficientMaterial;
 	}
 
-	updateTurn();
+	
 
+	// check for checkmate
 	if (result == legalMoveCheck && isKingInMate(_turn))
 	{
 		result = legalMoveCheckmate;
 	}
 
-	if (result == legalMove && isStalemate(_turn)) 
+	// check for stalemate
+	if (result == legalMove && isStalemate(_turn))
 	{
-		result = legelMoveStalemate;
+		result = legalMoveStalemate;
 	}
 
 	// update the game state flags
@@ -389,7 +393,7 @@ bool Manager::isStalemate(Color color)
 /*
 	This function checks if the meterial on the board is sufficient to play
 	input: the current color playing
-	output: true if sufficient false if not
+	output: true if insufficient false if not
 */
 bool Manager::insufficientMaterial() const
 {

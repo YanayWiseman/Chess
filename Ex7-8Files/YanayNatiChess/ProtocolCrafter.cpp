@@ -1,5 +1,6 @@
 #include "ProtocolCrafter.h"
 #include "Move.h"
+#include <cstdio>
 
 /*
 	fucntion to parse the given move from the frontEnd into a Move object
@@ -17,12 +18,31 @@ Move ProtocolCrafter::parseMove(string moveStr)
 	input: the code to craft with
 	output: the message to return to the frontEnd
 */
-
 const char* ProtocolCrafter::createResponse(char code)
 {
-	static char returnCode[2];
-	returnCode[0] = code;
-	returnCode[1] = '\0';
+    static char returnCode[3]; // 2 digits + null terminator
 
-	return returnCode;
+    if (code >= '0' && code <= '9')
+    {
+        // single-digit codes
+        returnCode[0] = code;
+        returnCode[1] = '\0';
+    }
+    else
+    {
+        // for codes 10, 11, 12, map chars to integers
+        int intCode = 0;
+
+        switch (code)
+        {
+        case ':': intCode = 10; break;
+        case ';': intCode = 11; break;
+        case '<': intCode = 12; break;
+        default: intCode = 0; break; // fallback
+        }
+
+        sprintf_s(returnCode, "%d", intCode);
+    }
+
+    return returnCode;
 }

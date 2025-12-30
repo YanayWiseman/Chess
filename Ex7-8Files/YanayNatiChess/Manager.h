@@ -31,10 +31,10 @@ typedef enum Codes
 	pieceIllegal = '6',			 		 // illegal movement of the piece
 	noMove = '7',			    		// src is dst
 	legalMoveCheckmate = '8',  		   // move cause checkmate (game is over)
-	legelMoveStalemate = '9', 		  // move cause stalemate (game is over)
-	drawInsufficientMaterial = '10', // not enough meterial on the board to cause mate
-	drawFiftyMoveRule = '11',		// no pawn was moved or piece was captured for 50 moves
-	drawFiveFoldRepetition = '12'  // the same position was reach 5 times
+	legalMoveStalemate = '9', 		  // move cause stalemate (game is over)
+	drawInsufficientMaterial = 58,   // not enough meterial on the board to cause mate
+	drawFiftyMoveRule = 59,			// no pawn was moved or piece was captured for 50 moves
+	drawFiveFoldRepetition = 60    // the same position was reach 5 times
 	
 } Codes;
 
