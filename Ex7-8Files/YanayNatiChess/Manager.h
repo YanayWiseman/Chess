@@ -47,6 +47,7 @@ private:
 	void CheckGameState();
 	bool isKingAlive(Color kingColor) const;
 	string getBoardString() const;
+	bool hasAnyValidMove(Color color);
 
 public:
 	// methods

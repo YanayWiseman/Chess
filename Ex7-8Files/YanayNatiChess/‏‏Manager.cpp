@@ -304,16 +304,15 @@ string Manager::getBoardString() const
 
 
 /*
-	This function checks if a given colored king is in mate
+	This function checks if a player has a valid move
 	input: the current color playing
-	output: true if the given king in mate false if not in mate
+	output: true if he has a valid move false if he doesnt
 */
-bool Manager::isKingInMate(Color color) 
+bool Manager::hasAnyValidMove(Color color)
 {
 	int i = 0;
 	int row = 0;
 	int col = 0;
-	int counter = 0;
 	std::vector<const Piece*> colorPieces;
 	std::vector<std::pair<int, int>> positions;
 
@@ -328,7 +327,6 @@ bool Manager::isKingInMate(Color color)
 			{
 				colorPieces.push_back(piece);
 				positions.emplace_back(row, col);
-				counter++;
 			}
 		}
 	}
@@ -346,11 +344,22 @@ bool Manager::isKingInMate(Color color)
 			char code = validateMove(move);
 			if (code == legalMove || code == legalMoveCheck)
 			{
-				return false; // found a valid move, king is not in mate
+				return true; // found a valid move
 			}
 		}
 	}
 
 	// No valid moves found
-	return true; // king is in mate
+	return false; 
+}
+
+
+/*
+	This function checks if a given colored king is in mate
+	input: the current color playing
+	output: true if the given king in mate false if not in mate
+*/
+bool Manager::isKingInMate(Color color)
+{
+	return !hasAnyValidMove(color);
 }
