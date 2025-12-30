@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 class Move;
 class Board;
@@ -51,4 +52,5 @@ public:
 
 	// Helpers
 	virtual bool canMove(const Move& move, const Board& board) const = 0;
+	virtual void getPseudoLegalMoves(const Board& board, int srcRow, int srcCol, std::vector<Move>& outMoves) const = 0;
 };
