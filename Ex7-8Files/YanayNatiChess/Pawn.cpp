@@ -101,6 +101,7 @@ bool Pawn::canMove(const Move& move, const Board& board) const
 	return checkPawnMove;
 }
 
+
 /*
 	function to check if current state of the board is en passant
 	input: the current move and the board (piece positions) (the move is the same as the move that canMove recieved)
@@ -167,4 +168,53 @@ bool Pawn::isEnPassant(const Move& move, const Board& board) const
 
 	// fits all of the en passant conditions!!!
 	return true;
+}
+
+/*
+	This function generates all pseudo legel moves for the pawn
+	input: current board current place(row, col)
+	output: vector of the moves
+*/
+std::vector<Move> Pawn::getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const
+{
+	std::vector<Move> moves;
+	int direction = (getColor() == Color::White) ? UP : DOWN;
+	int startRow = (getColor() == Color::White) ? BLACK_RANK : WHITE_RANK;
+
+	// 1. One square forward
+	int fwdRow = srcRow + direction;
+	if (board.inBoard(fwdRow, srcCol) && board.isEmpty(fwdRow, srcCol))
+	{
+		moves.emplace_back(srcRow, srcCol, fwdRow, srcCol);
+
+		// 2. Two squares forward from starting rank
+		int dblRow = srcRow + JUMP_MOVE * direction;
+		if (srcRow == startRow && board.isEmpty(dblRow, srcCol))
+		{
+			moves.emplace_back(srcRow, srcCol, dblRow, srcCol);
+		}
+	}
+
+	// 3. Captures
+	int captureCols[AXES] = { srcCol - 1, srcCol + 1 };
+	for (int c : captureCols)
+	{
+		if (board.inBoard(fwdRow, c))
+		{
+			const Piece* target = board.getPiece(fwdRow, c);
+			if (target && target->getColor() != getColor())
+			{
+				moves.emplace_back(srcRow, srcCol, fwdRow, c);
+			}
+
+			// 4. En passant
+			Move enPassantMove(srcRow, srcCol, fwdRow, c);
+			if (isEnPassant(enPassantMove, board))
+			{
+				moves.push_back(enPassantMove);
+			}
+		}
+	}
+
+	return moves;
 }

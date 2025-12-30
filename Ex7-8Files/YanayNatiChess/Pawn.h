@@ -15,6 +15,8 @@ private:
 	static constexpr int WHITE_RANK = 1;
 	static constexpr int BLACK_RANK = 6;
 
+	static constexpr int AXES = 2;
+
 	// methods
 	bool isEnPassant(const Move& move, const Board& board) const;
 
@@ -28,4 +30,5 @@ public:
 	virtual Piece* clone() const override;
 
 	bool canMove(const Move& move, const Board& board) const override;
+	virtual std::vector<Move> getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const override;
 };
