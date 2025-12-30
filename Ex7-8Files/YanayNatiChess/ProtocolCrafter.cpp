@@ -41,7 +41,10 @@ const char* ProtocolCrafter::createResponse(char code)
         default: intCode = 0; break; // fallback
         }
 
-        sprintf_s(returnCode, "%d", intCode);
+        //normal
+        // sprintf_s(returnCode, "%d", intCode);
+        // for git
+        sprintf(returnCode, "%d", intCode);
     }
 
     return returnCode;
