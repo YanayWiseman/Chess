@@ -54,7 +54,7 @@ void Manager::manageGame()
 		pipe.sendMessageToGraphics(msgToGraphics); // return result to graphics
 
 		// after a valid move, send updated board state (BONUS)
-		if (code == legalMove || code == legalMoveCheck || code == legalMoveCheckMate)
+		if (code == legalMove || code == legalMoveCheck || code == legalMoveCheckmate)
 		{
 			string boardState = getBoardString();
 			strcpy_s(msgToGraphics, KB, boardState.c_str());
@@ -160,7 +160,12 @@ char Manager::makeMove(const Move& move)
 
 	if (result == legalMoveCheck && isKingInMate(_turn))
 	{
-		result = legalMoveCheckMate;
+		result = legalMoveCheckmate;
+	}
+
+	if (result == legalMove && isStalemate(_turn)) 
+	{
+		result = legelMoveStalemate;
 	}
 
 	// update the game state flags
@@ -360,6 +365,17 @@ bool Manager::hasAnyValidMove(Color color)
 	output: true if the given king in mate false if not in mate
 */
 bool Manager::isKingInMate(Color color)
+{
+	return !hasAnyValidMove(color);
+}
+
+
+/*
+	This function checks if a given colored player is in stalemate
+	input: the current color playing
+	output: true if the given king in stalemate false if not in stalemate
+*/
+bool Manager::isStalemate(Color color)
 {
 	return !hasAnyValidMove(color);
 }
