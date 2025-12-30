@@ -41,8 +41,8 @@ bool Rook::canMove(const Move& move, const Board& board) const
 
 /*
 	This function generates all pseudo legel moves for the rook
-	input: current board current place(row, col) and vector to add the moves too
-	output: none
+	input: current board current place(row, col) 
+	output: vector of the moves
 */
 std::vector<Move> Rook::getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const
 {
