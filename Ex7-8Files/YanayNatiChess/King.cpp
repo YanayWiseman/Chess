@@ -56,6 +56,7 @@ bool King::canMove(const Move& move, const Board& board) const
 	return checkKingMove;
 }
 
+
 /*
 	function to check if the king can castle or not
 	input: the move made by the king and the board
@@ -125,4 +126,57 @@ bool King::canCastle(const Move& move, const Board& board) const
 	
 	// met all castling conditions and is allowed to castle
 	return true;
+}
+
+
+/*
+	This function generates all pseudo legel moves for the king
+	input: current board current place(row, col)
+	output: vector of the moves
+*/
+std::vector<Move> King::getPseudoLegalMoves(const Board& board, int srcRow, int srcCol) const
+{
+	int dir = 0;
+	std::vector<Move> moves;
+
+	// standard king moves
+	for (dir = 0; dir < DIR_COUNT; dir++)
+	{
+		int r = srcRow + DIRS[dir][0];
+		int c = srcCol + DIRS[dir][1];
+
+		bool blocked = false;
+
+		if (!board.inBoard(r, c))
+		{
+			blocked = true;
+		}
+
+		if (!blocked)
+		{
+			const Piece* target = board.getPiece(r, c);
+			if (!target || target->getColor() != this->getColor())
+			{
+				moves.emplace_back(srcRow, srcCol, r, c);
+			}
+		}
+	}
+
+	// castling
+
+	// king-side
+	Move kingSideMove(srcRow, srcCol, srcRow, srcCol + 2);
+	if (canCastle(kingSideMove, board))
+	{
+		moves.push_back(kingSideMove);
+	}
+
+	// queen-side
+	Move queenSideMove(srcRow, srcCol, srcRow, srcCol - 2);
+	if (canCastle(queenSideMove, board))
+	{
+		moves.push_back(queenSideMove);
+	}
+
+	return moves;
 }
