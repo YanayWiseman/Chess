@@ -9,8 +9,24 @@ const int BOARD_SIZE = 8;
 	input: no input values
 	output: no return values
 */
-Manager::Manager() : _board(), _turn(Color::White), _won(false), _inCheck(false), _movesCounter(0)
+Manager::Manager()
+	: _board(),
+	_turn(Color::White),
+	_won(false),
+	_inCheck(false),
+	_halfMoveClock(0),
+	_positionIndex(0) // new field to track current index in history
 {
+	int i = 0; 
+
+	// initialize the history array to empty strings
+	for (i = 0; i < FIFTY_MOVE_RULE; ++i)
+	{
+		_positionHistory[i] = "";
+	}
+
+	// store the initial board position
+	_positionHistory[_positionIndex++] = getBoardString();
 }
 
 
@@ -148,7 +164,6 @@ char Manager::makeMove(const Move& move)
 {
 	char result = validateMove(move);
 
-
 	if (result != legalMove && result != legalMoveCheck)
 	{
 		return result;
@@ -156,29 +171,51 @@ char Manager::makeMove(const Move& move)
 
 	// apply the movement
 	this->_board.movePiece(move);
+
+	// update turn first to get the correct color for check/mate/stalemate
 	updateTurn();
 
-	// check for insufficient material draw
+	// Update repetition history
+	std::string boardStr = getBoardString();
+
+	// add boardStr to history
+	this->_positionHistory[_positionIndex] = boardStr;
+	this->_positionIndex = (_positionIndex + 1) % FIFTY_MOVE_RULE; // wrap around
+
+	// count repetitions
+	int repeatCount = 0;
+	for (int i = 0; i < this->_positionIndex; ++i)
+	{
+		if (this->_positionHistory[i] == boardStr)
+		{
+			repeatCount++;
+		}
+	}
+
+	if (repeatCount >= THREE_FOLD_REPETITION)
+	{
+		return drawThreeFoldRepetition; 
+	}
+
+	// insufficient material rules
 	if (insufficientMaterial())
 	{
 		result = drawInsufficientMaterial;
 	}
 
-	
-
-	// check for checkmate
+	// check checkmate
 	if (result == legalMoveCheck && isKingInMate(_turn))
 	{
 		result = legalMoveCheckmate;
 	}
 
-	// check for stalemate
+	// check stalemate
 	if (result == legalMove && isStalemate(_turn))
 	{
 		result = legalMoveStalemate;
 	}
 
-	// update the game state flags
+	// update game state flags
 	CheckGameState();
 
 	return result;
