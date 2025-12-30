@@ -56,4 +56,5 @@ public:
 	char makeMove(const Move& move);
 	char validateMove(const Move& move);
 	bool hasWon() const;
+	bool isKingInMate(Color color);
 };

@@ -483,39 +483,6 @@ bool Board::isKingInCheck(Color curColor) const
 	return false;
 }
 
-
-/*
-	This function checks if a given colored king is in mate
-	input: the current color playing
-	output: true if the given king in mate false if not in mate
-*/
-bool Board::isKingInMate(Color color) const
-{
-	/*int kingRow = -1;
-	int kingCol = -1;
-
-	int row = 0;
-	int col = 0;
-
-	const Piece* piece = nullptr;
-
-	Move king = findKingByColor(color);
-
-	if (king.getSrcRow() == -1)
-	{
-		return false;
-	}
-
-	kingRow = king.getSrcRow();
-	kingCol = king.getSrcCol();
-
-	const Piece* king = getPiece(kingRow, kingCol);*/
-
-	return false;
-
-
-}
-
 /*
 	Operator method - deep copy of the board
 	input: the other board to copy to

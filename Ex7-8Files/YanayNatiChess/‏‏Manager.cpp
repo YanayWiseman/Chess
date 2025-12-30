@@ -1,4 +1,5 @@
 #include "Manager.h"
+#include <vector>
 
 const int BOARD_SIZE = 8;
 
@@ -126,12 +127,6 @@ char Manager::validateMove(const Move& move)
 	// get opposite color
 	Color enemy = (this->_turn == Color::White) ? Color::Black : Color::White;
 
-	// move put enemy in checkmate (8)
-	if (!isKingAlive(enemy))
-	{
-		return legalMoveCheckMate;
-	}
-
 	// move put enemy in check (1)
 	if (MovementCheck::causesCheck(move, this->_board, enemy))
 	{
@@ -152,13 +147,21 @@ char Manager::makeMove(const Move& move)
 {
 	char result = validateMove(move);
 
-	if (result != legalMove && result != legalMoveCheck && result != legalMoveCheckMate)
+
+	if (result != legalMove && result != legalMoveCheck)
 	{
 		return result;
 	}
 
 	// apply the movement
 	this->_board.movePiece(move);
+
+	Color enemy = (_turn == Color::White) ? Color::Black : Color::White;
+
+	if (result == legalMoveCheck && isKingInMate(enemy))
+	{
+		result = legalMoveCheckMate;
+	}
 
 	// update the game state flags
 	CheckGameState();
@@ -306,3 +309,41 @@ string Manager::getBoardString() const
 }
 
 
+/*
+	This function checks if a given colored king is in mate
+	input: the current color playing
+	output: true if the given king in mate false if not in mate
+*/
+bool Manager::isKingInMate(Color color) 
+{
+	// natis lazy bonus and as nati im aware that this is garbage in terms of run time
+	bool hasValidMove = false;
+	int sRow = 0;
+	int sCol = 0;
+	int dRow = 0;
+	int dCol = 0;
+	int counter = 0;
+
+	std::vector<const Piece*> colorPieces;
+	const Piece* piece = nullptr;
+
+	for (sRow = 0; sRow < BOARD_SIZE; sRow++)
+	{
+		for (sCol = 0; sCol < BOARD_SIZE; sCol++)
+		{
+			piece = this->_board.getPiece(sRow, sCol);
+			if (piece && piece->getColor() == color)
+			{
+				colorPieces.push_back(piece);
+			}
+		}
+	}
+	
+	{
+		for (const Piece* p : colorPieces)
+		{
+			
+		}
+	}
+	return !hasValidMove;
+}
