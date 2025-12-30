@@ -10,6 +10,7 @@ static const char* INITIAL_BOARD =
 "PPPPPPPP"
 "RNBQKBNR";
 
+
 /*
 	Constructor function to construct the Board object
 	input: no input values
