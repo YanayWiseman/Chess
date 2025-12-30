@@ -65,6 +65,7 @@ public:
 	bool inBoard(int row, int col) const;
 	void movePiece(const Move& move);
 	bool isKingInCheck(Color curColor) const;
+	bool isKingInMate(Color color);
 
 	void printBoard() const;
 };

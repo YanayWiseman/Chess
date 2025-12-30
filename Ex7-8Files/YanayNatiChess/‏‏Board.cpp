@@ -69,6 +69,62 @@ Piece* Board::createPieceFromChar(char ch) const
 }
 
 /*
+	This function finds a king position by color
+	input: king color
+	output: king posion
+*/
+Move Board::findKingByColor(Color color) const
+{
+	// -1 to check if king was found
+	int kingRow = -1;
+	int kingCol = -1;
+
+	int row = 0;
+	int col = 0;
+
+	const Piece* piece = nullptr;
+
+	// so we don't iterate over the entire board if unneeded
+	bool foundKing = false;
+
+
+	// Go over the whole board and find the kind
+	for (row = 0; row < this->SIZE && !foundKing; row++)
+	{
+		for (col = 0; col < this->SIZE && !foundKing; col++)
+		{
+			piece = getPiece(row, col);
+
+			bool isNotEmpty = (piece != nullptr);
+			bool sameColor = false;
+			bool isKing = false;
+
+			// To Not Derefrence a NULL pointer
+			if (isNotEmpty)
+			{
+				sameColor = (piece->getColor() == color);
+				isKing = (piece->getType() == PieceType::TypeKing);
+			}
+
+			if (isNotEmpty && sameColor && isKing)
+			{
+				kingRow = row;
+				kingCol = col;
+				foundKing = true;
+			}
+		}
+	}
+
+	// King not found (should not happen)
+	if (!foundKing)
+	{
+		return Move(-1, -1, -1, -1); //return an not possible posion
+	}
+
+	return Move(kingRow, kingCol, -1, -1);
+}
+
+/*
 	This function prints the board
 	input: none
 	output: none
@@ -454,6 +510,27 @@ bool Board::isKingInCheck(Color curColor) const
 	}
 
 	return false;
+}
+
+
+/*
+	This function checks if a given colored king is in mate
+	input: king color
+	output: is the given king in mate
+*/
+bool Board::isKingInMate(Color color) const
+{
+	// -1 to check if king was found
+	int kingRow = -1;
+	int kingCol = -1;
+
+	int row = 0;
+	int col = 0;
+
+	const Piece* piece = nullptr;
+
+	// so we don't iterate over the entire board if unneeded
+	bool foundKing = false;
 }
 
 /*
