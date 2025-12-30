@@ -304,3 +304,5 @@ string Manager::getBoardString() const
 
 	return boardStr;
 }
+
+

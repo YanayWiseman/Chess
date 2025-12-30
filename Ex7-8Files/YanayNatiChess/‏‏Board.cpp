@@ -432,7 +432,6 @@ bool Board::isDestValid(const Move& move) const
 
 bool Board::isKingInCheck(Color curColor) const
 {
-	// -1 to check if king was found
 	int kingRow = -1;
 	int kingCol = -1;
 
@@ -441,43 +440,15 @@ bool Board::isKingInCheck(Color curColor) const
 
 	const Piece* piece = nullptr;
 
-	// so we don't iterate over the entire board if unneeded
-	bool foundKing = false;
+	Move king = findKingByColor(curColor);
 
-
-	// Go over the whole board and find the kind
-	for (row = 0; row < this->SIZE && !foundKing; row++)
+	if (king.getSrcRow() == -1) 
 	{
-		for (col = 0; col < this->SIZE && !foundKing; col++)
-		{
-			piece = getPiece(row, col);
-
-			bool isNotEmpty = (piece != nullptr);
-			bool sameColor = false;
-			bool isKing = false;
-
-			// To Not Derefrence a NULL pointer
-			if (isNotEmpty)
-			{
-				sameColor = (piece->getColor() == curColor);
-				isKing = (piece->getType() == PieceType::TypeKing);
-			}
-
-			if (isNotEmpty && sameColor && isKing)
-			{
-				kingRow = row;
-				kingCol = col;
-				foundKing = true;
-			}
-		}
+		return false;
 	}
 
-	// King not found (should not happen)
-	if (!foundKing)
-	{
-		return false; // Exception
-	}
-
+	kingRow = king.getSrcRow();
+	kingCol = king.getSrcCol();
 
 	// Check if any enemy piece attacks the king
 	for (row = 0; row < this->SIZE; row++)
@@ -515,13 +486,12 @@ bool Board::isKingInCheck(Color curColor) const
 
 /*
 	This function checks if a given colored king is in mate
-	input: king color
-	output: is the given king in mate
+	input: the current color playing
+	output: true if the given king in mate false if not in mate
 */
 bool Board::isKingInMate(Color color) const
 {
-	// -1 to check if king was found
-	int kingRow = -1;
+	/*int kingRow = -1;
 	int kingCol = -1;
 
 	int row = 0;
@@ -529,8 +499,21 @@ bool Board::isKingInMate(Color color) const
 
 	const Piece* piece = nullptr;
 
-	// so we don't iterate over the entire board if unneeded
-	bool foundKing = false;
+	Move king = findKingByColor(color);
+
+	if (king.getSrcRow() == -1)
+	{
+		return false;
+	}
+
+	kingRow = king.getSrcRow();
+	kingCol = king.getSrcCol();
+
+	const Piece* king = getPiece(kingRow, kingCol);*/
+
+	return false;
+
+
 }
 
 /*

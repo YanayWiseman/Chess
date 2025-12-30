@@ -41,6 +41,7 @@ private:
 
 	// methods
 	Piece* createPieceFromChar(char ch) const;
+	Move findKingByColor(Color color) const;
 
 
 public:
@@ -65,7 +66,7 @@ public:
 	bool inBoard(int row, int col) const;
 	void movePiece(const Move& move);
 	bool isKingInCheck(Color curColor) const;
-	bool isKingInMate(Color color);
+	bool isKingInMate(Color color) const;
 
 	void printBoard() const;
 };
