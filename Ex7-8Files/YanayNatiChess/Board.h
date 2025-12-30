@@ -15,6 +15,14 @@ enum class Color;
 
 #define HASHTAG '#'
 
+
+struct Position
+{
+	int row;
+	int col;
+};
+
+
 typedef enum PieceLetters
 {
 	RookCh = 'r',
@@ -41,6 +49,7 @@ private:
 
 	// methods
 	Piece* createPieceFromChar(char ch) const;
+	Position findPiecePosition(const Piece* target) const;
 	
 
 

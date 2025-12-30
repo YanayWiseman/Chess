@@ -538,3 +538,5 @@ int Board::getSize() const
 {
 	return this->SIZE;
 }
+
+
