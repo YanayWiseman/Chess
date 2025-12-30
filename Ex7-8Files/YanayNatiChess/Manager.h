@@ -22,16 +22,19 @@ using std::string;
 
 typedef enum Codes
 {
-	legalMove = '0',				   // move was legel and didn't cause nothing
-	legalMoveCheck = '1',			  // move caused check on enemy
-	notValidSource = '2',			 // src pos isn't player's piece
-	notValidDest = '3',             // dst pos is the piece of the same team as the sec
-	selfCheck = '4',               // movement can cause self check
-	notInBoard = '5',			  // one of the positions is not within the board
-	pieceIllegal = '6',			 // illegal movement of the piece
-	noMove = '7',			    // src is dst
-	legalMoveCheckmate = '8',  // move cause checkmate (game is over)
-	legelMoveStalemate = '9', // move cause stalemate (game is over)
+	legalMove = '0',				   		   // move was legel and didn't cause nothing
+	legalMoveCheck = '1',			  		  // move caused check on enemy
+	notValidSource = '2',			 		 // src pos isn't player's piece
+	notValidDest = '3',             		// dst pos is the piece of the same team as the sec
+	selfCheck = '4',               		   // movement can cause self check
+	notInBoard = '5',			  		  // one of the positions is not within the board
+	pieceIllegal = '6',			 		 // illegal movement of the piece
+	noMove = '7',			    		// src is dst
+	legalMoveCheckmate = '8',  		   // move cause checkmate (game is over)
+	legelMoveStalemate = '9', 		  // move cause stalemate (game is over)
+	drawInsufficientMaterial = '10', // not enough meterial on the board to cause mate
+	drawFiftyMoveRule = '11',		// no pawn was moved or piece was captured for 50 moves
+	drawFiveFoldRepetition = '12'  // the same position was reach 5 times
 	
 } Codes;
 
@@ -61,4 +64,5 @@ public:
 	char validateMove(const Move& move);
 	bool hasWon() const;
 	bool isKingInMate(Color color);
+	bool insufficientMaterial() const;
 };

@@ -123,6 +123,7 @@ char Manager::validateMove(const Move& move)
 		return selfCheck;
 	}
 
+
 	// if got here, move is legal (0, 1, 8)
 	// get opposite color
 	Color enemy = (this->_turn == Color::White) ? Color::Black : Color::White;
@@ -155,6 +156,11 @@ char Manager::makeMove(const Move& move)
 
 	// apply the movement
 	this->_board.movePiece(move);
+
+	if (insufficientMaterial()) 
+	{
+		result = drawInsufficientMaterial;
+	}
 
 	updateTurn();
 
@@ -378,4 +384,98 @@ bool Manager::isKingInMate(Color color)
 bool Manager::isStalemate(Color color)
 {
 	return !hasAnyValidMove(color);
+}
+
+/*
+	This function checks if the meterial on the board is sufficient to play
+	input: the current color playing
+	output: true if sufficient false if not
+*/
+bool Manager::insufficientMaterial() const
+{
+	// Collect all pieces on the board
+	std::vector<const Piece*> whitePieces;
+	std::vector<const Piece*> blackPieces;
+	int row = 0;
+	int col = 0;
+
+	for (row = 0; row < BOARD_SIZE; row++)
+	{
+		for (col = 0; col < BOARD_SIZE; col++)
+		{
+			const Piece* piece = this->_board.getPiece(row, col);
+			if (!piece)
+			{
+				continue;
+			}
+
+			if (piece->getType() == PieceType::TypeKing)
+			{
+				continue; // ignore kings
+			}
+
+			if (piece->getColor() == Color::White)
+			{
+				whitePieces.push_back(piece);
+			}
+			else
+			{
+				blackPieces.push_back(piece);
+			}
+		}
+	}
+
+	// Only kings left
+	if (whitePieces.empty() && blackPieces.empty())
+	{
+		return true;
+	}
+
+	// King + knight or king + bishop vs king
+	if ((whitePieces.size() == 1 && blackPieces.empty()) || (blackPieces.size() == 1 && whitePieces.empty()))
+	{
+		const Piece* p = whitePieces.empty() ? blackPieces[0] : whitePieces[0];
+		PieceType type = p->getType();
+		if (type == PieceType::TypeBishop || type == PieceType::TypeKnight)
+		{
+			return true;
+		}
+	}
+
+	// King + bishop vs king + bishop (draw if bishops on same color)
+	if (whitePieces.size() == 1 && blackPieces.size() == 1)
+	{
+		const Piece* whiteBishop = whitePieces[0];
+		const Piece* blackBishop = blackPieces[0];
+
+		if (whiteBishop->getType() == PieceType::TypeBishop && blackBishop->getType() == PieceType::TypeBishop)
+		{
+			// get positions
+			int whiteRow = -1, whiteCol = -1;
+			int blackRow = -1, blackCol = -1;
+
+			for (int row = 0; row < BOARD_SIZE; row++)
+			{
+				for (int col = 0; col < BOARD_SIZE; col++)
+				{
+					const Piece* piece = this->_board.getPiece(row, col);
+					if (piece == whiteBishop)
+					{
+						whiteRow = row;
+						whiteCol = col;
+					}
+					if (piece == blackBishop)
+					{
+						blackRow = row;
+						blackCol = col;
+					}
+				}
+			}
+
+			if ((whiteRow + whiteCol) % 2 == (blackRow + blackCol) % 2)
+				return true;
+		}
+	}
+
+	return false; // otherwise, material is sufficient
 }

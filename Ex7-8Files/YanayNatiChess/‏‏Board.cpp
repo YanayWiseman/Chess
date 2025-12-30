@@ -70,6 +70,29 @@ Piece* Board::createPieceFromChar(char ch) const
 }
 
 /*
+	This function returns a piece position
+	input: piece
+	output: position
+*/
+Position Board::findPiecePosition(const Piece* target) const
+{
+	int row = 0;
+	int col = 0;
+
+	for (row = 0; row < SIZE; row++)
+	{
+		for (col = 0; col < SIZE; col++)
+		{
+			if (_squares[row][col] == target)
+			{
+				return { row, col };
+			}
+		}
+	}
+	return { -1, -1 }; // not found
+}
+
+/*
 	This function finds a king position by color
 	input: king color
 	output: king posion
@@ -538,5 +561,4 @@ int Board::getSize() const
 {
 	return this->SIZE;
 }
-
 

@@ -49,10 +49,7 @@ private:
 
 	// methods
 	Piece* createPieceFromChar(char ch) const;
-	Position findPiecePosition(const Piece* target) const;
 	
-
-
 public:
 	//Methods (big 3)
 	// c'tor & d'tor
@@ -76,6 +73,8 @@ public:
 	void movePiece(const Move& move);
 	bool isKingInCheck(Color curColor) const;
 	Move findKingByColor(Color color) const;
+	
+	Position findPiecePosition(const Piece* target) const;
 
 	void printBoard() const;
 };
